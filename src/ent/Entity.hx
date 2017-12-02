@@ -3,20 +3,34 @@ package ent;
 class Entity {
 
 	var game : Game;
-	var kind : Data.ObjectKind;
 	var inf : Data.Object;
-	var x : Float;
-	var y : Float;
-	var spr : h2d.Anim;
+	public var kind : Data.ObjectKind;
+	public var x : Float;
+	public var y : Float;
+	public var spr : h2d.Anim;
 
-	public function new( kind, x : Float, y : Float ) {
+	public function new( kind, x : Int, y : Int ) {
 		game = Game.inst;
 		this.kind = kind;
 		inf = Data.object.get(kind);
-		this.x = x;
-		this.y = y;
+		this.x = x + 0.5;
+		this.y = y + 0.5;
 		spr = new h2d.Anim(getAnim(), 15);
 		game.world.add(spr, Game.LAYER_ENT);
+		game.entities.push(this);
+	}
+
+	public function isCollide( with : ent.Entity ) {
+		return true;
+	}
+
+	public function canPick() {
+		return false;
+	}
+
+	public function remove() {
+		spr.remove();
+		game.entities.remove(this);
 	}
 
 	function getAnim() {
@@ -24,8 +38,11 @@ class Entity {
 	}
 
 	public function update( dt : Float ) {
-		spr.x = Std.int(x * 32) + 16;
-		spr.y = Std.int(y * 32) + 16;
+		spr.x = Std.int(x * 32);
+		spr.y = Std.int(y * 32);
 	}
+
+
+
 
 }
