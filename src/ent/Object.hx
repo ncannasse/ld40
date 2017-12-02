@@ -17,9 +17,11 @@ class Object extends Entity {
 			active = false;
 		else {
 			switch( kind ) {
-			case Square1 if( hasObj(ix, iy, Plate1) ):
+			case Square1 if( getObj(ix, iy, Plate1, [CanPutOver]) != null ):
 				active = true;
-			case Square2 if( hasObj(ix, iy, Plate2) ):
+			case Square2 if( getObj(ix, iy, Plate2, [CanPutOver]) != null ):
+				active = true;
+			case Wings if( getObj(ix, iy, [CanPutOver]) != null ):
 				active = true;
 			default:
 			}
@@ -32,17 +34,15 @@ class Object extends Entity {
 	}
 
 	override function isCollide( with : ent.Entity ) {
-		if( kind == Plate1 )
-			return with == null || (with.kind != Hero && with.kind != Square1);
-		if( kind == Plate2 )
-			return with == null || (with.kind != Hero && with.kind != Square2);
-		return !carried;
+		return with != null && with.kind != Hero;
 	}
 
 	override function canPick() {
-		if( kind == Plate1 || kind == Plate2 )
+		if( hasFlag(Under) )
 			return false;
-		return !carried;
+		if( carried )
+			return false;
+		return true;
 	}
 
 	override public function update(dt:Float) {
@@ -63,9 +63,9 @@ class Object extends Entity {
 		if( carried ) {
 			var hero = game.hero;
 			var index = hero.carry.length - 1 - hero.carry.indexOf(this);
-			var hpos = hero.history[hero.history.length - 4 - index * 8];
+			var hpos = hero.history[hero.history.length - 2 - index * 3];
 			if( hpos == null ) hpos = hero.history[hero.history.length - 1];
-			if( hpos == null ) hpos = { x : Std.int(hero.x * Hero.STEP), y : Std.int(hero.y * Hero.STEP), evt : 0, mx : 0, my : 0 };
+			if( hpos == null ) hpos = { x : Std.int(hero.x * Hero.STEP), y : Std.int(hero.y * Hero.STEP) };
 			var tx = (hpos.x / Hero.STEP) * 32;
 			var ty = (hpos.y / Hero.STEP) * 32;
 			var tangle = Math.atan2(ty - spr.y, tx - spr.x);
@@ -76,23 +76,19 @@ class Object extends Entity {
 			spr.y += Math.sin(angle) * ds;
 			return;
 		} else {
-
 			switch( kind ) {
-			case Plate1:
-				active = hasObj(Std.int(x), Std.int(y), Square1);
-			case Plate2:
-				active = hasObj(Std.int(x), Std.int(y), Square2);
+			case Plate1, Plate2:
+				active = getObj(Std.int(x), Std.int(y)) != null;
 			default:
 			}
-
 		}
 
 		if( wasCarried ) {
 			var tx = x * 32, ty = y * 32;
 			var d = hxd.Math.distance(tx - spr.x, ty - spr.y);
 			if( d > 1 ) {
-				spr.x = hxd.Math.lerp(spr.x, tx, 1 - Math.pow(0.5, dt));
-				spr.y = hxd.Math.lerp(spr.y, ty, 1 - Math.pow(0.5, dt));
+				spr.x = hxd.Math.lerp(spr.x, tx, 1 - Math.pow(0.7, dt));
+				spr.y = hxd.Math.lerp(spr.y, ty, 1 - Math.pow(0.7, dt));
 				return;
 			}
 			wasCarried = false;

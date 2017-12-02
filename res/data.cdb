@@ -59,13 +59,17 @@
 			"name": "object",
 			"columns": [
 				{
+					"typeStr": "14",
+					"name": "image",
+					"display": null
+				},
+				{
 					"typeStr": "0",
 					"name": "id"
 				},
 				{
-					"typeStr": "14",
-					"name": "image",
-					"display": null
+					"typeStr": "10:Under,NeedActive,CanPutOver",
+					"name": "flags"
 				}
 			],
 			"lines": [
@@ -76,7 +80,8 @@
 						"size": 32,
 						"x": 8,
 						"y": 31
-					}
+					},
+					"flags": 0
 				},
 				{
 					"id": "Hero",
@@ -85,7 +90,18 @@
 						"size": 32,
 						"x": 0,
 						"y": 1
-					}
+					},
+					"flags": 0
+				},
+				{
+					"id": "Exit",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 4,
+						"y": 0
+					},
+					"flags": 1
 				},
 				{
 					"id": "Square1",
@@ -94,7 +110,8 @@
 						"size": 32,
 						"x": 0,
 						"y": 0
-					}
+					},
+					"flags": 2
 				},
 				{
 					"id": "Square2",
@@ -103,7 +120,8 @@
 						"size": 32,
 						"x": 1,
 						"y": 0
-					}
+					},
+					"flags": 2
 				},
 				{
 					"id": "Plate1",
@@ -112,7 +130,8 @@
 						"size": 32,
 						"x": 2,
 						"y": 0
-					}
+					},
+					"flags": 7
 				},
 				{
 					"id": "Plate2",
@@ -121,7 +140,28 @@
 						"size": 32,
 						"x": 3,
 						"y": 0
-					}
+					},
+					"flags": 7
+				},
+				{
+					"id": "Wings",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 5,
+						"y": 0
+					},
+					"flags": 2
+				},
+				{
+					"id": "Steal",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 6,
+						"y": 0
+					},
+					"flags": 5
 				}
 			],
 			"separators": [],
@@ -166,8 +206,8 @@
 					"height": 13,
 					"tileProps": [],
 					"layers": [],
-					"objects": "BCJNGGBAgiQAAAAfAAEADB8EIAAMDwIADh8CIgAOAQIAEQEGAA8CAANQAAAAAAAAAAAA",
-					"soils": "BCJNGGBAgmsAAABUAgICAQEFAAAIAFAAAgICABIAwgIAAAEAAgACAAEAAA0AIAAAEwACDQAADgATAQ0AACIAAQQAAzUAAyYABDUAASYAAEEAARoAAQ4AARUAAjUACw0AMgIAAQEAAIgAwAIAAAAAAAAAAAACAgAAAAA=",
+					"objects": "BCJNGGBAghcAAAAeAAEAHgITAA8CAE8fAWMACFAAAAAAAAAAAAA=",
+					"soils": "BCJNGGBAgiIAAABQAgICAgABAAAJAAACAAAMABAACQAAAgAPDQBzUAACAgICAAAAAA==",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -191,8 +231,8 @@
 					"height": 13,
 					"tileProps": [],
 					"layers": [],
-					"soils": "BCJNGGBAgmIAAABUAgICAQEFAAAIABAAAQAAEgBAAgAAAQwAAAYADg0AABsAEwEaAAAiAAEEAAU1AAEZAAQ1ACMBARkAADQAACgABBkAAygAAQcABBoAMgIAAQEAADQAwAIAAAAAAAAAAAACAgAAAAA=",
-					"objects": "BCJNGGBAgiUAAAAfAAEADBgCIAAYAQ0ADwIAFB8DKAARXwQAAAAFKQAGUAAAAAAAAAAAAA==",
+					"soils": "BCJNGGBAgiIAAABQAgICAgABAAAJAAACAAAMABAACQAAAgAPDQBzUAACAgICAAAAAA==",
+					"objects": "BCJNGGBAgioAAAAeAAEAHgETAA8CAAEfAxUAAQ4CAB4FEwAPAgABHwIVAAEDAgBQAAAAAAAAAAAA",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -216,8 +256,8 @@
 					"height": 13,
 					"tileProps": [],
 					"layers": [],
-					"soils": "BCJNGGBAglsAAABUAgICAQEFAAAIABAAAQAAEgAQAgkAAAIAmgEAAAICAAABAQ0AEQESAAAaABAAGgAABAAFNQABMwAFTQARARkAACEAAiwADw0ACSMCAQEAADQAA4MAUAAAAAICAAAAAA==",
-					"objects": "BCJNGGBAgh8AAAAcAAEAXAQAAAAFFQAPAgBNXwIBAAADZQAGUAAAAAAAAAAAAA==",
+					"soils": "BCJNGGBAgiIAAABQAgICAgABAAAJAAACAAAMABAACQAAAgAPDQBzUAACAgICAAAAAA==",
+					"objects": "BCJNGGBAgiwAAAAeAAEAHgITAA8CACgfAzwABFYEAAAABhwAFgELADAAAAUFAAYCAFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -241,8 +281,8 @@
 					"height": 13,
 					"tileProps": [],
 					"layers": [],
-					"soils": "BCJNGGBAgngAAABUAgICAQEFAAAIABAAAQAAEgAQAgkAAAIAUQEAAAICBwARAAYAAQ0AMAEAAQUAARoAAAsAMAABABoAATUAABwAEABOAAAUAAAnAABPAAEhAAIRAAMNACADAEIAAw0AAAIAAA0AJAIBAQAAQQCwAAAAAAAAAAAAAgIAAAAA",
-					"objects": "BCJNGGBAgiAAAAAcAAEAXAIBAAADFQAPAgApHwQ9ABUfBSkABVAAAAAAAAAAAAA=",
+					"soils": "BCJNGGBAgigAAACQAgICAgAAAQAACQAAAgAQAAEAAAkAAAIAAAwADxoAbXABAAACAgICAAAAAA==",
+					"objects": "BCJNGGBAgh8AAAAeAAEAHgETAA8CACg/AwAEPgAdOQYCBTMAUAAAAAAAAAAAAA==",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -266,8 +306,133 @@
 					"height": 13,
 					"tileProps": [],
 					"layers": [],
-					"soils": "BCJNGGBAgmoAAABUAgICAQEFAAAIABAAAQAAEgAQAgkAAAIAUQEAAAICBwARAAYAAQ0AEAEMAAMaABEADQAQABoAAzUAARkABU0AAWEAASEAAAIAEAFOAAAyAAACAA0NACQCAQEAAEEAsAAAAAAAAAAAAAICAAAAAA==",
-					"objects": "BCJNGGBAgh0AAAAfAAEAThgCYgAYAQ0ACwIAGwMQAAUCAFAAAAAAAAAAAAA=",
+					"soils": "BCJNGGBAgkYAAACQAgICAgAAAQAACQAAAgAQAAEAAAkAAAIAAAwABhoANgEAAQ0AABsAACMAAAIAAAwABRoACQIACRoADw0AI3ABAAACAgICAAAAAA==",
+					"objects": "BCJNGGBAgiYAAAAeAAEAGAITAB8FDQAGGAYaAA8CABQfBygAEjkEAQMoAFAAAAAAAAAAAAA=",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgkMAAACQAgICAgAAAQAACQAAAgAQAAEAAAkAAAIAEAAbAAAJAAACAAAZAA8nAAYGNAAJAgAAGQAPNAAQDycACXABAAACAgICAAAAAA==",
+					"objects": "BCJNGGBAgi0AAAAeAAEAGAETABgHDQA2AwAFDwAWBAsADwIALzcGAAZFABcCDACAAAAAAAAAAAAAAAAA",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgkgAAACQAgICAgAAAQEACQAAAgA/AAAADQAHGAAnAA8NAAQCAgADHgAAJgAgAAIEAAFoAAAJAAAEAA8NABARAiYAoAIAAAEAAAICAgIAAAAA",
+					"objects": "BCJNGGBAgjIAAAAfAAEAF18FAAAAAy8AFwgCABgGDQAJAgASAg4AMgQABwkAAQIAEAEGAAY0AFAAAAAAAAAAAAA=",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgkoAAACxAgICAQAAAQEAAQIBAEUBAAAADQARAg0AARgAAg0AIQAACgAPDQAKAgIAAysAADMAEABHAAAWAA8NABoSAmsAkAAAAQAAAgICAgAAAAA=",
+					"objects": "BCJNGGBAgjgAAAAcAAEAPAUABhMAAwIAEwMIAAMCABMICAAPAgAREwQlAA5bABMBGgATAggABgIAFQcLAFAAAAAAAAAAAAA=",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgkQAAACxAgICAQAAAQEAAQIBACABAAEAAw0AEAIMABEAGAAPDQATBi4AAToAEwBBAA8NABcjAgA7ABACCgABdQBwAQAAAgICAgAAAAA=",
+					"objects": "BCJNGGBAgkAAAAAcAAEAPAMABBMADwIAAx8IFwADBwIAFQYMAEAGAAAFDQAQBwUAQQAAAAIGAAACAARGABABDQAPAgAEUAAAAAAAAAAAAA==",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgk8AAACxAgICAQAAAQEAAQIBACABAAEAAw0AEAIMABEAGAAPDQATAi4AADIAAToAEwBBAAINAAkCAAkaAAYNACMCADsAAkYAsAICAAABAAACAgICAAAAAA==",
+					"objects": "BCJNGGBAgjoAAAAfAAEADB8GIAAMDwIACRUHHQBABAAAAw0AEAUFAEEAAAABBgAAAgAPYAAHEAIfAKAAAAAAAAAAAAAAAAAAAA==",
 					"props": {
 						"tileSize": 32,
 						"layers": [

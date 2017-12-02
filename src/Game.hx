@@ -7,9 +7,10 @@ class Game extends hxd.App {
 	static var LH = 13;
 
 	static var LAYER_SOIL = 0;
-	static var LAYER_COL = 1;
-	static var LAYER_ENT = 2;
-	static var LAYER_CARRY = 3;
+	static var LAYER_ENT_UNDER = 1;
+	static var LAYER_COL = 2;
+	static var LAYER_ENT = 3;
+	static var LAYER_CARRY = 4;
 
 	var tiles : h2d.Tile;
 	var level : Data.Level;
@@ -19,10 +20,10 @@ class Game extends hxd.App {
 	var collides : Array<Int> = [];
 	var dbgCol : h2d.TileGroup;
 	var hero : ent.Hero;
-	var currentLevel = 0;
+	var currentLevel = 9;
 	var soilLayer : h2d.TileGroup;
-	var endTimer = 0.;
 	var pad : hxd.Pad;
+	var allActive : Bool;
 
 	override function init() {
 		s2d.setFixedSize(LW * 32, LH * 32);
@@ -103,7 +104,9 @@ class Game extends hxd.App {
 
 	function isCollide( e : ent.Entity, x, y ) {
 		switch( getSoil(x, y) ) {
-		case Block, Block2:
+		case Block:
+			return true;
+		case Block2 if( e != hero || !hero.doCarry(Wings,true) ):
 			return true;
 		default:
 		}
@@ -150,21 +153,12 @@ class Game extends hxd.App {
 		}
 
 
-		var allActive = true;
+		allActive = true;
 		for( e in entities.copy() ) {
 			e.update(dt);
 			var o = Std.instance(e, ent.Object);
-			if( o != null && !o.active )
+			if( o != null && !o.active && o.hasFlag(NeedActive) )
 				allActive = false;
-		}
-		if( allActive ) {
-			endTimer += dt / 60;
-			if( endTimer > 2 && currentLevel < Data.level.all.length - 1 ) {
-				currentLevel++;
-				initLevel();
-			}
-		} else {
-			endTimer = 0;
 		}
 	}
 
