@@ -24,7 +24,7 @@
     <option noInlineOnDebug="False" />
     <option mainClass="Game" />
     <option enabledebug="False" />
-    <option additional="-D windowSize=832x848" />
+    <option additional="-D windowSize=832x832" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

@@ -16,15 +16,6 @@
 			],
 			"lines": [
 				{
-					"id": "Block",
-					"image": {
-						"file": "tiles.png",
-						"size": 32,
-						"x": 2,
-						"y": 2
-					}
-				},
-				{
 					"id": "Empty",
 					"image": {
 						"file": "tiles.png",
@@ -34,7 +25,25 @@
 					}
 				},
 				{
-					"id": "Square",
+					"id": "Block",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 2,
+						"y": 2
+					}
+				},
+				{
+					"id": "Block2",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 3,
+						"y": 2
+					}
+				},
+				{
+					"id": "Hint",
 					"image": {
 						"file": "tiles.png",
 						"size": 32,
@@ -79,7 +88,7 @@
 					}
 				},
 				{
-					"id": "Square",
+					"id": "Square1",
 					"image": {
 						"file": "tiles.png",
 						"size": 32,
@@ -88,11 +97,29 @@
 					}
 				},
 				{
-					"id": "Black",
+					"id": "Square2",
 					"image": {
 						"file": "tiles.png",
 						"size": 32,
 						"x": 1,
+						"y": 0
+					}
+				},
+				{
+					"id": "Plate1",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 2,
+						"y": 0
+					}
+				},
+				{
+					"id": "Plate2",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 3,
 						"y": 0
 					}
 				}
@@ -103,10 +130,6 @@
 		{
 			"name": "level",
 			"columns": [
-				{
-					"name": "id",
-					"typeStr": "0"
-				},
 				{
 					"name": "width",
 					"typeStr": "3"
@@ -139,13 +162,112 @@
 			],
 			"lines": [
 				{
-					"id": "Start",
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
 					"layers": [],
-					"objects": "BCJNGGBAghUAAAAfAAEAQB8CVAAgHwE0AAhQAAAAAAAAAAAA",
-					"soils": "BCJNGGBAgiIAAAAZAAEAFgEBAAMNABECEgADDQACAgAPDQBXAwIAUAAAAAAAAAAAAA==",
+					"objects": "BCJNGGBAgiQAAAAfAAEADB8EIAAMDwIADh8CIgAOAQIAEQEGAA8CAANQAAAAAAAAAAAA",
+					"soils": "BCJNGGBAgmsAAABUAgICAQEFAAAIAFAAAgICABIAwgIAAAEAAgACAAEAAA0AIAAAEwACDQAADgATAQ0AACIAAQQAAzUAAyYABDUAASYAAEEAARoAAQ4AARUAAjUACw0AMgIAAQEAAIgAwAIAAAAAAAAAAAACAgAAAAA=",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgmIAAABUAgICAQEFAAAIABAAAQAAEgBAAgAAAQwAAAYADg0AABsAEwEaAAAiAAEEAAU1AAEZAAQ1ACMBARkAADQAACgABBkAAygAAQcABBoAMgIAAQEAADQAwAIAAAAAAAAAAAACAgAAAAA=",
+					"objects": "BCJNGGBAgiUAAAAfAAEADBgCIAAYAQ0ADwIAFB8DKAARXwQAAAAFKQAGUAAAAAAAAAAAAA==",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAglsAAABUAgICAQEFAAAIABAAAQAAEgAQAgkAAAIAmgEAAAICAAABAQ0AEQESAAAaABAAGgAABAAFNQABMwAFTQARARkAACEAAiwADw0ACSMCAQEAADQAA4MAUAAAAAICAAAAAA==",
+					"objects": "BCJNGGBAgh8AAAAcAAEAXAQAAAAFFQAPAgBNXwIBAAADZQAGUAAAAAAAAAAAAA==",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgngAAABUAgICAQEFAAAIABAAAQAAEgAQAgkAAAIAUQEAAAICBwARAAYAAQ0AMAEAAQUAARoAAAsAMAABABoAATUAABwAEABOAAAUAAAnAABPAAEhAAIRAAMNACADAEIAAw0AAAIAAA0AJAIBAQAAQQCwAAAAAAAAAAAAAgIAAAAA",
+					"objects": "BCJNGGBAgiAAAAAcAAEAXAIBAAADFQAPAgApHwQ9ABUfBSkABVAAAAAAAAAAAAA=",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgmoAAABUAgICAQEFAAAIABAAAQAAEgAQAgkAAAIAUQEAAAICBwARAAYAAQ0AEAEMAAMaABEADQAQABoAAzUAARkABU0AAWEAASEAAAIAEAFOAAAyAAACAA0NACQCAQEAAEEAsAAAAAAAAAAAAAICAAAAAA==",
+					"objects": "BCJNGGBAgh0AAAAfAAEAThgCYgAYAQ0ACwIAGwMQAAUCAFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [

@@ -24,6 +24,17 @@ class Entity {
 		return true;
 	}
 
+	function hasObj( x : Int, y : Int, k : Data.ObjectKind ) {
+		for( e in game.entities ) {
+			var o = Std.instance(e, Object);
+			if( o == null || o.carried ) continue;
+			if( Std.int(o.x) != x || Std.int(o.y) != y ) continue;
+			if( o.kind == k )
+				return true;
+		}
+		return false;
+	}
+
 	public function canPick() {
 		return false;
 	}
@@ -43,6 +54,9 @@ class Entity {
 	}
 
 
+	function toString() {
+		return kind + "(" + Std.int(x) + "," + Std.int(y) + ")";
+	}
 
 
 }

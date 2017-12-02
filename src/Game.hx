@@ -1,3 +1,4 @@
+import hxd.Key in K;
 
 @:publicFields
 class Game extends hxd.App {
@@ -18,26 +19,60 @@ class Game extends hxd.App {
 	var collides : Array<Int> = [];
 	var dbgCol : h2d.TileGroup;
 	var hero : ent.Hero;
+	var currentLevel = 0;
+	var soilLayer : h2d.TileGroup;
+	var endTimer = 0.;
+	var pad : hxd.Pad;
 
 	override function init() {
-		s2d.setFixedSize(LW * 32, LH * 32 + 16);
+		s2d.setFixedSize(LW * 32, LH * 32);
 
 		world = new h2d.Layers(s2d);
+		world.filter = new h2d.filter.Bloom(0.5,0.1,2,3);
 		tiles = hxd.Res.tiles.toTile();
-
-		var soilLayer = new h2d.TileGroup(tiles);
+		soilLayer = new h2d.TileGroup(tiles);
 		world.add(soilLayer, LAYER_SOIL);
-		level = Data.level.all[0];
+		initLevel();
+
+		pad = hxd.Pad.createDummy();
+		hxd.Pad.wait(function(p) pad = p);
+
+		hxd.Res.data.watch(onReload);
+	}
+
+	function onReload() {
+		Data.load(hxd.Res.data.entry.getText());
+		initLevel(true);
+	}
+
+	function initLevel( ?reload ) {
+
+
+		level = Data.level.all[currentLevel];
+		if( level == null )
+			return;
+
+		if( !reload )
+			for( e in entities.copy() )
+				e.remove();
+
 		soils = level.soils.decode(Data.soil.all);
 
 		var objects = level.objects.decode(Data.object.all);
+		var empty = tiles.sub(0, 2 * 32, 32, 32);
+		soilLayer.clear();
 		for( y in 0...LH )
 			for( x in 0...LW ) {
-				var s = soils[x+y*LW];
-				soilLayer.add(x * 32, y * 32, tiles.sub(s.image.x * 32, s.image.y * 32, 32, 32));
-				createObject(objects[x + y * LW].id, x, y);
+				var s = soils[x + y * LW];
+				soilLayer.add(x * 32, y * 32, empty);
+				if( s.id != Empty )
+					soilLayer.add(x * 32, y * 32, tiles.sub(s.image.x * 32, s.image.y * 32, 32, 32));
+				if( !reload )
+					createObject(objects[x + y * LW].id, x, y);
 			}
 		updateCol();
+		collides = [];
+		@:privateAccess hero.rebuildCol();
 	}
 
 	function createObject(kind : Data.ObjectKind, x, y) : ent.Entity {
@@ -68,7 +103,7 @@ class Game extends hxd.App {
 
 	function isCollide( e : ent.Entity, x, y ) {
 		switch( getSoil(x, y) ) {
-		case Block:
+		case Block, Block2:
 			return true;
 		default:
 		}
@@ -100,14 +135,44 @@ class Game extends hxd.App {
 
 
 	override function update( dt : Float ) {
-		for( e in entities.copy() )
+
+		if( K.isPressed("R".code) || K.isPressed("K".code) )
+			initLevel();
+
+		if( (K.isPressed(K.BACKSPACE) || K.isPressed(K.PGUP)) && currentLevel > 0 ) {
+			currentLevel--;
+			initLevel();
+		}
+
+		if( K.isPressed(K.PGDOWN) && currentLevel < Data.level.all.length - 1 ) {
+			currentLevel++;
+			initLevel();
+		}
+
+
+		var allActive = true;
+		for( e in entities.copy() ) {
 			e.update(dt);
+			var o = Std.instance(e, ent.Object);
+			if( o != null && !o.active )
+				allActive = false;
+		}
+		if( allActive ) {
+			endTimer += dt / 60;
+			if( endTimer > 2 && currentLevel < Data.level.all.length - 1 ) {
+				currentLevel++;
+				initLevel();
+			}
+		} else {
+			endTimer = 0;
+		}
 	}
 
 
 	public static var inst : Game;
 
 	static function main() {
+		hxd.res.Resource.LIVE_UPDATE = true;
 		hxd.Res.initLocal();
 		Data.load(hxd.Res.data.entry.getText());
 		inst = new Game();

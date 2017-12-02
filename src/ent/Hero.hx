@@ -12,6 +12,8 @@ class Hero extends Entity {
 
 	var lastMX = 0;
 	var lastMY = 0;
+	var curMX = 0;
+	var curMY = 0;
 	var acc = 0.;
 
 	var colX = -1;
@@ -19,7 +21,7 @@ class Hero extends Entity {
 	var colTile : h2d.Tile;
 	var colView : h2d.TileGroup;
 	var eventHist : Array<Event> = [];
-	public var history : Array<{ x : Int, y : Int, evt : Int }> = [];
+	public var history : Array<{ x : Int, y : Int, evt : Int, mx : Int, my : Int }> = [];
 
 	public var carry : Array<Object> = [];
 
@@ -48,14 +50,19 @@ class Hero extends Entity {
 		tag.drawRect(0, 0, 32, 32);
 	}
 
+	override function remove() {
+		super.remove();
+		colView.remove();
+	}
+
 	function undoEvents( len ) {
 		while( eventHist.length > len ) {
 			switch( eventHist.pop() ) {
 			case Get(o, x, y):
 				carry.remove(o);
-				o.carried = false;
 				o.x = x + 0.5;
 				o.y = y + 0.5;
+				o.carried = false;
 			case Put(o):
 				o.carried = true;
 				carry.push(o);
@@ -68,11 +75,13 @@ class Hero extends Entity {
 			var h = history[history.length - 1];
 			if( h.x == colX && h.y == colY ) {
 				history.pop();
+				lastMX = curMX = h.mx;
+				lastMY = curMY = h.my;
 				undoEvents(h.evt);
 				return;
 			}
 		}
-		history.push({ x : ox, y : oy, evt : eventHist.length });
+		history.push({ x : ox, y : oy, evt : eventHist.length, mx : curMX, my : curMY });
 	}
 
 	function rebuildCol() {
@@ -108,6 +117,8 @@ class Hero extends Entity {
 			undoEvents(h.evt);
 			x = h.x / STEP;
 			y = h.y / STEP;
+			lastMX = curMX = h.mx;
+			lastMY = curMY = h.my;
 			colX = h.x;
 			colY = h.y;
 			change = true;
@@ -120,83 +131,110 @@ class Hero extends Entity {
 
 		var dacc = dt * 0.1;
 		var dmove = dt * 0.01 * (acc + 7);
-		var drec = dmove * 0.9;
 
 		var fric = Math.pow(0.8, dt);
 
-		var left = K.isDown(K.LEFT);
-		var right = K.isDown(K.RIGHT);
-		var up = K.isDown(K.UP);
-		var down = K.isDown(K.DOWN);
+		var left = K.isDown(K.LEFT) || game.pad.xAxis < -0.3;
+		var right = K.isDown(K.RIGHT) || game.pad.xAxis > 0.3;
+		var up = K.isDown(K.UP) || game.pad.yAxis < -0.3;
+		var down = K.isDown(K.DOWN) || game.pad.yAxis > 0.3;
+
+		if( game.pad.xAxis != 0 || game.pad.yAxis != 0 )
+			dmove *= Math.sqrt(game.pad.xAxis * game.pad.xAxis + game.pad.yAxis * game.pad.yAxis);
+
+		var drec = dmove * 0.9;
 		var rx = x - 0.5;
 		var ry = y - 0.5;
+		var updateLR = null, updateUD = null;
 
 		if( left || right ) {
 			var nextY = lastMY > 0 ? Math.ceil(ry - 0.3) : Std.int(ry + 0.3);
 			var nextX = left ? Std.int(rx - 1e-3) : Std.int(rx) + 1;
-			if( !game.isCollide(this,nextX, nextY) ) {
-				if( ry < nextY ) {
-					ry += drec;
-					if( ry > nextY ) ry = nextY;
-					acc *= fric;
-				} else if( ry > nextY ) {
-					ry -= drec;
-					if( ry < nextY ) ry = nextY;
-					acc *= fric;
-				} else if( rx > nextX ){
-					rx -= dmove;
-					lastMY = 0;
-					lastMX = -1;
-					if( rx < nextX ) rx = nextX;
-					acc += dacc;
-				} else {
-					rx += dmove;
-					lastMY = 0;
-					lastMX = 1;
-					if( rx > nextX ) rx = nextX;
-					acc += dacc;
+			if( !game.isCollide(this, nextX, nextY) ) {
+				updateLR = function() {
+					if( ry < nextY ) {
+						ry += drec;
+						if( ry > nextY ) ry = nextY;
+						acc *= fric;
+					} else if( ry > nextY ) {
+						ry -= drec;
+						if( ry < nextY ) ry = nextY;
+						acc *= fric;
+					} else if( rx > nextX ){
+						rx -= dmove;
+						lastMY = 0;
+						lastMX = -1;
+						if( rx < nextX ) rx = nextX;
+						acc += dacc;
+					} else {
+						rx += dmove;
+						lastMY = 0;
+						lastMX = 1;
+						if( rx > nextX ) rx = nextX;
+						acc += dacc;
+					}
 				}
 			}
-		} else if( up || down ) {
+		}
+
+		if( up || down ) {
 			var nextX = lastMX > 0 ? Math.ceil(rx - 0.3) : Std.int(rx + 0.3);
 			var nextY = up ? Std.int(ry - 1e-3) : Std.int(ry) + 1;
-			if( !game.isCollide(this,nextX, nextY) ) {
-				if( rx < nextX ) {
-					rx += drec;
-					if( rx > nextX ) rx = nextX;
-					acc *= fric;
-				} else if( rx > nextX ) {
-					rx -= drec;
-					if( rx < nextX ) rx = nextX;
-					acc *= fric;
-				} else if( ry > nextY ){
-					ry -= dmove;
-					lastMX = 0;
-					lastMY = -1;
-					if( ry < nextY ) ry = nextY;
-					acc += dacc;
-				} else {
-					ry += dmove;
-					lastMX = 0;
-					lastMY = 1;
-					if( ry > nextY ) ry = nextY;
-					acc += dacc;
+			if( !game.isCollide(this, nextX, nextY) ) {
+				updateUD = function() {
+					if( rx < nextX ) {
+						rx += drec;
+						if( rx > nextX ) rx = nextX;
+						acc *= fric;
+					} else if( rx > nextX ) {
+						rx -= drec;
+						if( rx < nextX ) rx = nextX;
+						acc *= fric;
+					} else if( ry > nextY ){
+						ry -= dmove;
+						lastMX = 0;
+						lastMY = -1;
+						if( ry < nextY ) ry = nextY;
+						acc += dacc;
+					} else {
+						ry += dmove;
+						lastMX = 0;
+						lastMY = 1;
+						if( ry > nextY ) ry = nextY;
+						acc += dacc;
+					}
 				}
 			}
-		} else {
-			acc *= fric * fric;
 		}
+
+
+		if( updateLR != null && updateUD != null ) {
+			if( Math.abs(game.pad.xAxis) > Math.abs(game.pad.yAxis) )
+				updateUD = null;
+			else if( lastMX != 0 )
+				updateLR = null;
+			else
+				updateUD = null;
+		}
+
+		if( updateLR != null )
+			updateLR();
+		else if( updateUD != null )
+			updateUD();
+		else
+			acc *= fric * fric;
+
 		this.x = rx + 0.5;
 		this.y = ry + 0.5;
 
 
-		var action = K.isPressed(K.SPACE);
+		var action = K.isPressed(K.SPACE) || game.pad.isPressed(hxd.Pad.DEFAULT_CONFIG.A);
 
 		if( action ) {
-			var frontX = lastMX < 0 ? Math.round(x - 0.1) : Math.round(x - 0.9);
-			var frontY = lastMY < 0 ? Math.round(y - 0.1) : Math.round(y - 0.9);
-			frontX += lastMX;
-			frontY += lastMY;
+			var frontX = curMX < 0 ? Math.round(x - 0.1) : Math.round(x - 0.9);
+			var frontY = curMY < 0 ? Math.round(y - 0.1) : Math.round(y - 0.9);
+			frontX += curMX;
+			frontY += curMY;
 			//setTag(frontX, frontY);
 			var obj = Std.instance(game.pick(frontX, frontY), Object);
 			if( obj != null ) {
@@ -205,10 +243,10 @@ class Hero extends Entity {
 				eventHist.push(Get(obj, frontX, frontY));
 				game.updateCol();
 			} else if( obj == null && carry.length > 0 ) {
-				var putX = Std.int(x) + lastMX;
-				var putY = Std.int(y) + lastMY;
+				var putX = Std.int(x) + curMX;
+				var putY = Std.int(y) + curMY;
 				//setTag(putX, putY);
-				if( !game.isCollide(null, putX, putY) ) {
+				if( !game.isCollide(carry[carry.length-1], putX, putY) ) {
 					var c = carry.pop();
 					c.x = putX + 0.5;
 					c.y = putY + 0.5;
@@ -228,6 +266,8 @@ class Hero extends Entity {
 			if( colX < newX ) colX++ else if( colX > newX ) colX--;
 			if( colY < newY ) colY++ else if( colY > newY ) colY--;
 			setCol(oldX, oldY);
+			curMX = lastMX;
+			curMY = lastMY;
 			change = true;
 		}
 		if( change ) rebuildCol();
@@ -235,7 +275,9 @@ class Hero extends Entity {
 
 	override function update(dt:Float) 	{
 
-		if( K.isDown(K.ESCAPE) ) {
+		var oldMX = lastMX, oldMY = lastMY;
+
+		if( K.isDown(K.ESCAPE) || game.pad.isDown(hxd.Pad.DEFAULT_CONFIG.B) ) {
 			updateUndo(dt);
 		} else {
 			undoAcc *= Math.pow(0.7, dt);
