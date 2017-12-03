@@ -1,4 +1,5 @@
 package ent;
+import Data.ObjectKind;
 
 class Object extends Entity {
 
@@ -32,17 +33,6 @@ class Object extends Entity {
 		var iy = Std.int(y);
 		if( b )
 			active = false;
-		else {
-			switch( kind ) {
-			case Square1 if( getObj(ix, iy, Plate1, [CanPutOver]) != null ):
-				active = true;
-			case Square2 if( getObj(ix, iy, Plate2, [CanPutOver]) != null ):
-				active = true;
-			case Wings if( getObj(ix, iy, [CanPutOver]) != null ):
-				active = true;
-			default:
-			}
-		}
 		wasCarried = carried;
 		game.world.add(spr, b ? Game.LAYER_CARRY : Game.LAYER_ENT);
 		if( b )
@@ -92,9 +82,10 @@ class Object extends Entity {
 			var index = hero.carry.length - 1 - hero.carry.indexOf(this);
 			var hpos = hero.history[hero.history.length - 2 - index * 3];
 			if( hpos == null ) hpos = hero.history[hero.history.length - 1];
-			if( hpos == null ) hpos = { x : Std.int(hero.x * Hero.STEP), y : Std.int(hero.y * Hero.STEP) };
-			var tx = (hpos.x / Hero.STEP) * 32;
-			var ty = (hpos.y / Hero.STEP) * 32;
+			var step = ent.Hero.STEP;
+			if( hpos == null ) hpos = { x : Std.int(hero.x * step), y : Std.int(hero.y * step) };
+			var tx = (hpos.x / step) * 32;
+			var ty = (hpos.y / step) * 32;
 			var tangle = Math.atan2(ty - spr.y, tx - spr.x);
 
 			if( spr.scaleX > 0.5 ) {
@@ -138,6 +129,7 @@ class Object extends Entity {
 
 		super.update(dt);
 
+		var ix = Std.int(x), iy = Std.int(y);
 		switch( kind ) {
 		case Exit:
 			if( game.allActive ) {
@@ -146,6 +138,12 @@ class Object extends Entity {
 				spr.speed = 0;
 				spr.currentFrame = 0;
 			}
+		case Square1:
+			active = getObj(ix, iy, [Plate1, Plate2][game.hueValue], [CanPutOver]) != null;
+		case Square2:
+			active = getObj(ix, iy, [Plate2, Plate1][game.hueValue], [CanPutOver]) != null;
+		case Wings:
+			active = getObj(ix, iy, [CanPutOver]) != null;
 		default:
 		}
 	}

@@ -38,7 +38,7 @@ class Game extends hxd.App {
 	var collides : Array<Int> = [];
 	var dbgCol : h2d.TileGroup;
 	var hero : ent.Hero;
-	var currentLevel = 7;
+	var currentLevel = 9;
 	var soilLayer : h2d.TileGroup;
 	var pad : hxd.Pad;
 	var allActive : Bool;
@@ -50,11 +50,17 @@ class Game extends hxd.App {
 	var way : Float = 1.;
 	var bmpTrans : h2d.Bitmap;
 
+	var hueShader = new h3d.shader.ColorMatrix();
+	var hueShaderHalf = new h3d.shader.ColorMatrix();
+
+	var hueValue = 0;
+	var currentHue = 0.;
+
 	override function init() {
 		s2d.setFixedSize(LW * 32, LH * 32);
 
 		world = new h2d.Layers(s2d);
-		//world.filter = new h2d.filter.Bloom(0.5,0.1,2,3);
+		world.filter = new h2d.filter.Bloom(0.5,0.2,2,3);
 		tiles = hxd.Res.tiles.toTile();
 		soilLayer = new h2d.TileGroup(tiles);
 
@@ -62,14 +68,15 @@ class Game extends hxd.App {
 		bg.filter = new h2d.filter.Blur(1, 3);
 		bg.filter.smooth = true;
 		var tbg = tiles.sub(32 * 3, 64, 32, 32);
-		tbg.scaleToSize(LW*32, LH*32);
-		new h2d.Bitmap(tbg, bg);
+		tbg.scaleToSize(LW * 32, LH * 32);
+		new h2d.Bitmap(tbg, bg).addShader(hueShaderHalf);
 
 		var rnd = new hxd.Rand(42);
 		var ctiles = [for( i in 0...3 ) tiles.sub(i * 32 * 3, 192, 32 * 3, 64, -32 * 3 >> 1, -32)];
 		for( i in 0...100 ) {
 			var b = new h2d.Bitmap(ctiles[rnd.random(ctiles.length)], bg);
 			b.smooth = true;
+			b.addShader(hueShaderHalf);
 			clouds.push({ sc : 0.7 + rnd.rand(), x : rnd.rand() * (LW * 32 + 200) - 100, y : rnd.rand() * (LH * 32 + 200) - 100, speed : rnd.rand() + 1, spr : b, t : Math.random() * Math.PI * 2 });
 		}
 
@@ -247,6 +254,9 @@ class Game extends hxd.App {
 			}
 		}
 
+		if( K.isPressed("H".code) )
+			hueValue = 1 - hueValue;
+
 		if( K.isPressed("R".code) || K.isPressed("K".code) )
 			initLevel();
 
@@ -316,6 +326,15 @@ class Game extends hxd.App {
 			if( p.x < 0 )
 				p.x += LW * 32;
 		}
+
+
+		currentHue = hxd.Math.lerp(currentHue, hueValue, 1 - Math.pow(0.95, dt));
+
+		hueShader.matrix.identity();
+		hueShaderHalf.matrix.identity();
+		hueShader.matrix.colorHue(-Math.PI * currentHue);
+		hueShaderHalf.matrix.colorHue(-Math.PI/2 * currentHue);
+
 
 	}
 

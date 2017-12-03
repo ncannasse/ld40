@@ -18,6 +18,8 @@ class Entity {
 		spr = new h2d.Anim(getAnim(), 15);
 		game.world.add(spr, hasFlag(Under) ? Game.LAYER_ENT_UNDER : Game.LAYER_ENT);
 		game.entities.push(this);
+		if( hasFlag(ApplyHue) )
+			spr.addShader(game.hueShader);
 	}
 
 	public function hasFlag(f) {

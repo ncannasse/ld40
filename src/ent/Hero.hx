@@ -4,6 +4,7 @@ import hxd.Key in K;
 enum Event {
 	Get( o : Object, x : Int, y : Int );
 	Put( o : Object );
+	Hue( old : Int );
 }
 
 class ColorReplacer extends hxsl.Shader {
@@ -112,6 +113,8 @@ class Hero extends Entity {
 			case Put(o):
 				o.carried = true;
 				carry.push(o);
+			case Hue(v):
+				game.hueValue = v;
 			}
 		}
 	}
@@ -326,6 +329,9 @@ class Hero extends Entity {
 							game.nextLevel();
 					case [Plate1, _], [Plate2, _] if( ckind != null ):
 						put(ix, iy);
+					case [HueSwitch, _]:
+						addEvent(Hue(game.hueValue));
+						game.hueValue = 1 - game.hueValue;
 					default:
 					}
 				}
@@ -401,9 +407,9 @@ class Hero extends Entity {
 		case null:
 			//
 		case Square1:
-			targetR = 43;
-			targetG = 145;
-			targetB = 171;
+			targetR = 90;
+			targetG = 230;
+			targetB = 34;
 		case Square2:
 			targetR = 134;
 			targetG = 43;
