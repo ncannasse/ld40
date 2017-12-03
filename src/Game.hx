@@ -38,7 +38,7 @@ class Game extends hxd.App {
 	var collides : Array<Int> = [];
 	var dbgCol : h2d.TileGroup;
 	var hero : ent.Hero;
-	var currentLevel = 0;
+	var currentLevel = 7;
 	var soilLayer : h2d.TileGroup;
 	var pad : hxd.Pad;
 	var allActive : Bool;
@@ -47,6 +47,8 @@ class Game extends hxd.App {
 	var clouds = [];
 
 	var parts : h2d.SpriteBatch;
+	var way : Float = 1.;
+	var bmpTrans : h2d.Bitmap;
 
 	override function init() {
 		s2d.setFixedSize(LW * 32, LH * 32);
@@ -59,7 +61,9 @@ class Game extends hxd.App {
 		bg = new h2d.Sprite(world);
 		bg.filter = new h2d.filter.Blur(1, 3);
 		bg.filter.smooth = true;
-		new h2d.Bitmap(h2d.Tile.fromColor(0x366C8D, 1000, 1000), bg);
+		var tbg = tiles.sub(32 * 3, 64, 32, 32);
+		tbg.scaleToSize(LW*32, LH*32);
+		new h2d.Bitmap(tbg, bg);
 
 		var rnd = new hxd.Rand(42);
 		var ctiles = [for( i in 0...3 ) tiles.sub(i * 32 * 3, 192, 32 * 3, 64, -32 * 3 >> 1, -32)];
@@ -89,6 +93,33 @@ class Game extends hxd.App {
 		initLevel(true);
 	}
 
+	function nextLevel() {
+		haxe.Timer.delay(function() {
+			for( e in entities.copy() )
+				if( e.hasFlag(NeedActive) )
+					e.remove();
+			bg.visible = false;
+			parts.visible = false;
+			hero.remove();
+
+			var t = new h3d.mat.Texture(LW * 32, LH * 32, [Target]);
+			var old = world.filter;
+			world.filter = null;
+			world.drawTo(t);
+			world.filter = old;
+			bmpTrans = new h2d.Bitmap(h2d.Tile.fromTexture(t));
+
+			bg.visible = true;
+			parts.visible = true;
+
+			currentLevel++;
+			initLevel();
+
+			world.add(bmpTrans, LAYER_ENT - 1);
+
+		},0);
+	}
+
 	function initLevel( ?reload ) {
 
 
@@ -112,6 +143,11 @@ class Game extends hxd.App {
 			layer.content.addShader(new h3d.shader.SinusDeform(20,0.002,3));
 			soilLayer.addChild(layer.content);
 		}
+		var layer = cdb.getLevelLayer("border2");
+		if( layer != null ) {
+			layer.content.addShader(new h3d.shader.SinusDeform(20,0.002,3));
+			soilLayer.addChild(layer.content);
+		}
 
 		var objects = level.objects.decode(Data.object.all);
 		var empty = tiles.sub(0, 2 * 32, 32, 32);
@@ -120,7 +156,8 @@ class Game extends hxd.App {
 			for( x in 0...LW ) {
 				var s = soils[x + y * LW];
 				if( s.id != Block2 ) {
-					soilLayer.add(x * 32, y * 32, empty);
+					if( s.id != Block )
+						soilLayer.add(x * 32, y * 32, empty);
 					if( s.id != Empty )
 						soilLayer.add(x * 32, y * 32, tiles.sub(s.image.x * 32, s.image.y * 32, 32, 32));
 				}
@@ -167,8 +204,14 @@ class Game extends hxd.App {
 		default:
 		}
 		var i = collides[x + y * LW];
-		if( i > (Std.is(e,ent.Hero) ? 16 : 0) )
-			return true;
+		if( i > 0 ) {
+
+			if( !hero.padActive && e == hero && i < 16 ) {
+				// skip
+			} else {
+				return true;
+			}
+		}
 
 		for( e2 in entities )
 			if( e2 != e && Std.int(e2.x) == x && Std.int(e2.y) == y && e2.isCollide(e) )
@@ -195,6 +238,15 @@ class Game extends hxd.App {
 
 	override function update( dt : Float ) {
 
+		if( bmpTrans != null ) {
+			bmpTrans.alpha -= 0.05 * dt;
+			if( bmpTrans.alpha < 0 ) {
+				bmpTrans.tile.getTexture().dispose();
+				bmpTrans.remove();
+				bmpTrans = null;
+			}
+		}
+
 		if( K.isPressed("R".code) || K.isPressed("K".code) )
 			initLevel();
 
@@ -209,17 +261,25 @@ class Game extends hxd.App {
 		}
 
 
-		allActive = true;
-		for( e in entities.copy() ) {
+		for( e in entities.copy() )
 			e.update(dt);
+
+		allActive = true;
+		for( e in entities ) {
 			var o = Std.instance(e, ent.Object);
 			if( o != null && !o.active && o.hasFlag(NeedActive) )
 				allActive = false;
 		}
 
 		var ang = -0.3;
+
+
+		var curWay = hero.movingAmount < 0 ? hero.movingAmount * 4 : 1;
+		way = hxd.Math.lerp(way, curWay, 1 - Math.pow(0.5, dt));
+
+
 		for( c in clouds ) {
-			var ds = c.speed * dt * 0.3;
+			var ds = c.speed * dt * 0.3 * way;
 
 			c.t += ds * 0.01;
 			c.spr.setScale(1 + Math.sin(c.t) * 0.2);
@@ -231,21 +291,30 @@ class Game extends hxd.App {
 			c.spr.y = c.y;
 			if( c.x > LW * 32 + 100 )
 				c.x -= LW * 32 + 300;
+			if( c.y > LH * 32 + 100 )
+				c.y -= LH * 32 + 300;
+			if( c.x < -100 )
+				c.x += LW * 32 + 300;
 			if( c.y < -100 )
 				c.y += LH * 32 + 300;
+
 		}
 
 		parts.hasRotationScale = true;
 		for( p in parts.getElements() ) {
 			var p = cast(p, EnvPart);
-			var ds = dt * p.speed;
+			var ds = dt * p.speed * way;
 			p.x += Math.cos(ang) * ds;
 			p.y += Math.sin(ang) * ds;
 			p.rotation += ds * p.rspeed;
 			if( p.x > LW * 32 )
 				p.x -= LW * 32;
+			if( p.y > LH * 32 )
+				p.y -= LH * 32;
 			if( p.y < 0 )
 				p.y += LH * 32;
+			if( p.x < 0 )
+				p.x += LW * 32;
 		}
 
 	}

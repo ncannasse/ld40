@@ -264,7 +264,26 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh0AAAAiHAACABUZAgACEAAGAgAEGAAPGgD/EVAAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh0AAAARAAEAER4GAAICABIfBwADAgAPGgD/G1AAAAAAAAAAAAA="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgiIAAABQAwMDAwEBAAAJAAACAAAMABABCQAAAgAPDQBzUAEDAwMDAAAAAA==",
 					"objects": "BCJNGGBAgioAAAAeAAEAHgETAA8CAAEfAxUAAQ4CAB4FEwAPAgABHwIVAAEDAgBQAAAAAAAAAAAA",
 					"props": {
@@ -289,7 +308,26 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh0AAAAiHAACABUZAgACEAAGAgAEGAAPGgD/EVAAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh0AAAARAAEAER4GAAICABIfBwADAgAPGgD/G1AAAAAAAAAAAAA="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgiIAAABQAwMDAwEBAAAJAAACAAAMABABCQAAAgAPDQBzUAEDAwMDAAAAAA==",
 					"objects": "BCJNGGBAgiwAAAAeAAEAHgITAA8CACgfAzwABFYEAAAABhwAFgELADAAAAUFAAYCAFAAAAAAAAAAAAA=",
 					"props": {
@@ -306,6 +344,18 @@
 								"p": {
 									"alpha": 1
 								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
 							}
 						]
 					}
@@ -314,7 +364,26 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh0AAAAiHAACABUZAgACEAAGAgAEGAAPGgD/EVAAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh0AAAARAAEAER4GAAICABIfBwADAgAPGgD/G1AAAAAAAAAAAAA="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgigAAACQAwMDAwEBAgEBCQAAAgAQAQEAAAkAAAIAAAwADxoAbXACAQEDAwMDAAAAAA==",
 					"objects": "BCJNGGBAgh8AAAAeAAEAHgETAA8CACg/AwAEPgAdOQYCBTMAUAAAAAAAAAAAAA==",
 					"props": {
@@ -339,7 +408,26 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgjMAAAAiHAACABUZAgACEAAGAgAEGAAPGgBnDwIABwCWAAICAAwkAAIWAAACAA8aAFhQABwAHAAAAAAA"
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgjAAAAARAAEAER4GAAICABIfBwADAgAPGgBvNTsAFgIAEzyWAAICAA+cAG8LggBQAAAAAAAAAAAA"
+							}
+						}
+					],
 					"soils": "BCJNGGBAgkYAAACQAwMDAwEBAgEBCQAAAgAQAQEAAAkAAAIAAAwABhoANgIBAg0AABsAACMAAAIAAAwABRoACQIACRoADw0AI3ACAQEDAwMDAAAAAA==",
 					"objects": "BCJNGGBAgiYAAAAeAAEAGAITAB8FDQAGGAYaAA8CABQfBygAEjkEAQMoAFAAAAAAAAAAAAA=",
 					"props": {
@@ -356,6 +444,18 @@
 								"p": {
 									"alpha": 1
 								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
 							}
 						]
 					}
@@ -364,7 +464,26 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgjMAAAAiHAACABUZAgACEAAGAgAEGAAPGgBnDwIABwCWAAICAAwkAAIWAAACAA8aAFhQABwAHAAAAAAA"
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgjAAAAARAAEAER4GAAICABIfBwADAgAPGgBvNTsAFgIAEzyWAAICAA+cAG8LggBQAAAAAAAAAAAA"
+							}
+						}
+					],
 					"soils": "BCJNGGBAgkMAAACQAwMDAwEBAgEBCQAAAgAQAQEAAAkAAAIAEAEbAAAJAAACAAAZAA8nAAYGNAAJAgAAGQAPNAAQDycACXACAQEDAwMDAAAAAA==",
 					"objects": "BCJNGGBAgi0AAAAeAAEAGAETABgHDQA2AwAFDwAWBAsADwIALzcGAAZFABcCDACAAAAAAAAAAAAAAAAA",
 					"props": {
@@ -389,7 +508,35 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAglAAAAAiHAACABUZAgACEAAGAgAEGAAPGgBnCAIAAIgABooAAAwAAgIABAwABCwAAhYAAAIABAwADxoANQBQAAAGAAICAABiAAICAIAcABwAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgkAAAAARAAEAER4GAAICABIfBwADAgAPGgBjETkCAAKDADU7ABYCABI8EwADAgAPnABjMSwAAAQAAAIAC4IAUAAsAAAAAAAAAA=="
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh8AAAAfAAEAgB8jlAAGHx4aAG4RL4QAHx+IAAJgLwAAADAAAAAAAA=="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgkgAAACQAwMDAwEBAgIBCQAAAgA/AQEBDQAHGAEnAA8NAAQCAgADHgAAJgAgAQMEAAFoAAAJAAAEAA8NABARAyYAoAMBAQIBAQMDAwMAAAAA",
 					"objects": "BCJNGGBAgjIAAAAfAAEAF18FAAAAAy8AFwgCABgGDQAJAgASAg4AMgQABwkAAQIAEAEGAAY0AFAAAAAAAAAAAAA=",
 					"props": {
@@ -398,11 +545,29 @@
 							{
 								"l": "soils",
 								"p": {
-									"alpha": 1
+									"alpha": 0.47
 								}
 							},
 							{
 								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
 								"p": {
 									"alpha": 1
 								}
@@ -414,7 +579,35 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgnYAAAAgHAACABkZAgAAEgAEAgAIGAAKGgAIHAAADgAIAgAALAACAgAIFgAAAgACFgAAAgAADgAIAgAAFAACAgAIFgAMAgAKIgACDgAAAgAEDAAEMAAAFAACAgAEDAAPGgA1AFAAAAYAAgIAAmQAAAIAgBwAHAAcABwAAAAAAA=="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAglkAAABQAAAAAB4FAAcCABUfDAAPGgAHChwABjIAAAIACDYADxoAIxE5AgAATABVAAA7ABYCABA8EQAFAgAPaAAvBUsACwYBDxoACTEsAAAEAAACAAuCAFAALAAAAAAAAAA="
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgi8AAAAfAAEAJDcvACw6ADcsADAOAA8CAC0fI0EABh8eGgBuES+EAB8fiAACYC8AAAAwAAAAAAA="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgkoAAACxAwMDAgEBAgIBAgMBAEUCAQEBDQARAw0AARgAAg0AIQEBCgAPDQAKAgIAAysAADMAEAFHAAAWAA8NABoSA2sAkAEBAgEBAwMDAwAAAAA=",
 					"objects": "BCJNGGBAgjgAAAAcAAEAPAUABhMAAwIAEwMIAAMCABMICAAPAgAREwQlAA5bABMBGgATAggABgIAFQcLAFAAAAAAAAAAAAA=",
 					"props": {
@@ -431,6 +624,24 @@
 								"p": {
 									"alpha": 1
 								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
+								"p": {
+									"alpha": 1
+								}
 							}
 						]
 					}
@@ -439,7 +650,35 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgnwAAAAgHAACABkZAgAAEgAEAgAIGAAKGgAIHAAADgAIAgAALAACAgAIFgAAAgACFgAAAgAADgAIAgAAFAACAgAEFgAKDgACAgACFAACAgAIDgAIDAAKDgAPGgApADwAAHgAAFQAAgIAAg4AAAYAAgIAAhYAAAIAgBwAHAAcABwAAAAAAA=="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgmQAAABQAAAAAB4FAAcCABUfDAAPGgAHChwABjIAAAIACDYADxoADxE5AgAKNAAAEgAQOUsAZQAAADsAFgIAETwSAAQCAAo0AAQWAAACAA8aADURLAQACk4AAhQAABgADWgAUAAsAAAAAAAAAA=="
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgk0AAAAfAAEAJDcvACw6ADcsADAOAA8CACEXJDUAFyMMADAAAB8FAAMCABMeCAACAgAPGgBPAHAAGR/cABMvFAA5LwAAGACgAAAAAC8AAAAwAAAAAAA="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgkQAAACxAwMDAgEBAgIBAgMBACACAQEAAw0AEAMMABEBGAAPDQATBi4AAToAEwFBAA8NABcjAwE7ABADCgABdQBwAgEBAwMDAwAAAAA=",
 					"objects": "BCJNGGBAgkAAAAAcAAEAPAMABBMADwIAAx8IFwADBwIAFQYMAEAGAAAFDQAQBwUAQQAAAAIGAAACAARGABABDQAPAgAEUAAAAAAAAAAAAA==",
 					"props": {
@@ -453,6 +692,24 @@
 							},
 							{
 								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
 								"p": {
 									"alpha": 1
 								}

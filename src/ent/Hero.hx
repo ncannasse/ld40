@@ -6,6 +6,22 @@ enum Event {
 	Put( o : Object );
 }
 
+class ColorReplacer extends hxsl.Shader {
+	static var SRC = {
+		@param var colorSrc : Vec4;
+		@param var colorDst : Vec4;
+		var pixelColor : Vec4;
+		function fragment() {
+			pixelColor = mix( pixelColor, colorDst, float( (pixelColor - colorSrc).length() < 0.0001 ) );
+		}
+	}
+	public function new( colorSrc, colorDst = 0 ) {
+		super();
+		this.colorSrc.setColor(colorSrc);
+		this.colorDst.setColor(colorDst);
+	}
+}
+
 class Hero extends Entity {
 
 	public static var STEP = 8;
@@ -25,9 +41,15 @@ class Hero extends Entity {
 	var moving : { x : Int, y : Int, dx : Int, dy : Int, k : Float, way : Float, ?undo : Bool };
 
 	var time : Float = 0.;
+	var flying = 0.;
 
-	var dir(default,set) : hxd.Direction;
 
+	var colHero : h2d.Bitmap;
+	var dir(default, set) : hxd.Direction;
+
+	var colorRepl = new ColorReplacer( 0xFF000000 | (54 << 16) | (69 << 8) | 79 );
+
+	public var movingAmount : Float = 0.;
 
 	public function new(x,y) {
 		super(Hero, x, y);
@@ -38,9 +60,17 @@ class Hero extends Entity {
 		var m = h3d.Matrix.I();
 		m._44 = 0.1;
 		colView.blendMode = Add;
+		colView.addShader(new h3d.shader.SinusDeform(20,0.005,3));
 		colView.filter = new h2d.filter.ColorMatrix(m);
+
+		colHero = new h2d.Bitmap(game.tiles.sub(32, 32, 32, 32, -16, -16), colView);
+
 		game.world.add(colView, Game.LAYER_COL);
 		game.world.add(spr, Game.LAYER_HERO);
+
+		spr.addShader(colorRepl);
+
+		colorRepl.colorDst.load(colorRepl.colorSrc);
 
 		tag = new h2d.Graphics();
 		game.world.add(tag, Game.LAYER_ENT + 1);
@@ -144,7 +174,7 @@ class Hero extends Entity {
 		return false;
 	}
 
-	var padActive = false;
+	public var padActive = false;
 
 	function updateMove(dt:Float) {
 		if( acc > 5 ) acc = 5;
@@ -154,11 +184,15 @@ class Hero extends Entity {
 
 		var fric = Math.pow(0.8, dt);
 
+		var padUndo = game.pad.isDown(hxd.Pad.DEFAULT_CONFIG.B) || game.pad.isDown(hxd.Pad.DEFAULT_CONFIG.A);
+
 		var left = K.isDown(K.LEFT) || game.pad.xAxis < -0.5;
 		var right = K.isDown(K.RIGHT) || game.pad.xAxis > 0.5;
 		var up = K.isDown(K.UP) || game.pad.yAxis < -0.5;
 		var down = K.isDown(K.DOWN) || game.pad.yAxis > 0.5;
-		var undo = K.isDown(K.ESCAPE) || game.pad.isDown(hxd.Pad.DEFAULT_CONFIG.B);
+		var undo = K.isDown(K.ESCAPE) || K.isDown(K.SPACE) || padUndo;
+
+		if( padUndo ) padActive = true;
 
 		if( undo ) {
 			left = right = up = down = false;
@@ -202,7 +236,8 @@ class Hero extends Entity {
 			}
 		}
 
-		if( moving != null ) {
+		// cancel
+		if( moving != null && !padActive ) {
 			if( moving.dx < 0 ) {
 				if( right )
 					moving.way = -1;
@@ -229,6 +264,9 @@ class Hero extends Entity {
 
 		if( moving != null ) {
 			var prev = moving.k;
+
+			movingAmount = dmove * moving.way;
+
 			moving.k += dmove * moving.way;
 			var end = false;
 			if( moving.k >= 1 ) {
@@ -284,12 +322,8 @@ class Hero extends Entity {
 					var ckind = carry.length == 0 ? null : carry[carry.length - 1].kind;
 					switch( [obj.kind, ckind] ) {
 					case [Exit,_]:
-						haxe.Timer.delay(function() {
-							if( game.allActive ) {
-								game.currentLevel++;
-								game.initLevel();
-							}
-						}, 0);
+						if( game.allActive )
+							game.nextLevel();
 					case [Plate1, _], [Plate2, _] if( ckind != null ):
 						put(ix, iy);
 					default:
@@ -298,7 +332,8 @@ class Hero extends Entity {
 			}
 			if( end )
 				moving = null;
-		}
+		} else
+			movingAmount = 0;
 
 		if( moving == null ) {
 
@@ -331,6 +366,7 @@ class Hero extends Entity {
 				updateUD();
 			else
 				acc *= fric * fric;
+
 		}
 
 		var newX = Std.int(x * STEP);
@@ -359,8 +395,39 @@ class Hero extends Entity {
 		}
 
 
+		var targetR = 54, targetG = 69, targetB = 79;
+		var cid = carry.length == 0 ? null : carry[carry.length - 1].kind;
+		switch( cid ) {
+		case null:
+			//
+		case Square1:
+			targetR = 43;
+			targetG = 145;
+			targetB = 171;
+		case Square2:
+			targetR = 134;
+			targetG = 43;
+			targetB = 171;
+		case Wings:
+			targetR = targetG = targetB = 0;
+			flying += dt * 0.05;
+			if( flying > 1 ) flying = 1;
+		default:
+		}
+		if( cid != Wings ) {
+			flying -= dt * 0.02;
+			if( flying < 0 ) flying = 0;
+		}
+
+		var p = 1 - Math.pow(0.95, dt);
+		colorRepl.colorDst.r = hxd.Math.lerp(colorRepl.colorDst.r, targetR / 255, p);
+		colorRepl.colorDst.g = hxd.Math.lerp(colorRepl.colorDst.g, targetG / 255, p);
+		colorRepl.colorDst.b = hxd.Math.lerp(colorRepl.colorDst.b, targetB / 255, p);
+
 		time += dt * 0.05;
-		spr.y -= (Math.sin(time) + 1) * 3;
+		colHero.x = spr.x;
+		colHero.y = spr.y;
+		spr.y -= (Math.sin(time) + 1) * (1 + flying * 2) + 10 + flying * 8;
 	}
 
 }

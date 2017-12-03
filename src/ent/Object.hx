@@ -7,8 +7,25 @@ class Object extends Entity {
 	var wasCarried = false;
 	var color : h3d.shader.ColorAdd;
 	var pulse : Float = 0.;
+	var hintAct : h2d.Anim;
 	public var active : Bool;
-	public var carried(default,set) : Bool = false;
+	public var carried(default, set) : Bool = false;
+
+	public function new(k, x, y) {
+		super(k, x, y);
+		switch( kind ) {
+		case Square1, Square2:
+			var a = new h2d.Anim([for( i in 0...9 ) game.tiles.sub(i * 32, 256 + (kind == Square2 ? 32 : 0), 32, 32, -16, -16)], 20, spr);
+			a.loop = false;
+			a.onAnimEnd = function() {
+				haxe.Timer.delay(function() {
+					a.currentFrame = 0;
+				}, 200 + Std.random(400));
+			};
+			hintAct = a;
+		default:
+		}
+	}
 
 	function set_carried(b) {
 		var ix = Std.int(x);
@@ -45,10 +62,20 @@ class Object extends Entity {
 		return true;
 	}
 
+	override function getAnim() {
+		return switch( kind ) {
+		case Exit:
+			[for( i in 0...6 ) game.tiles.sub(i * 32, 160, 32, 32, -16, -16)];
+		default:
+			super.getAnim();
+		}
+	}
+
 	override public function update(dt:Float) {
 
-
-		if( active ) {
+		if( hintAct != null )
+			hintAct.visible = !active;
+		else if( active ) {
 			pulse += dt * 0.1;
 			spr.adjustColor({ saturation : Math.abs(Math.sin(pulse)) * 0.5, lightness : Math.abs(Math.sin(pulse)) * 0.2 });
 		} else if( pulse != 0 ) {
@@ -110,6 +137,17 @@ class Object extends Entity {
 		}
 
 		super.update(dt);
+
+		switch( kind ) {
+		case Exit:
+			if( game.allActive ) {
+				spr.speed = 15;
+			} else {
+				spr.speed = 0;
+				spr.currentFrame = 0;
+			}
+		default:
+		}
 	}
 
 }
