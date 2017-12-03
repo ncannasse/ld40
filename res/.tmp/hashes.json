@@ -1,0 +1,19 @@
+{
+	"sfx": {
+		"ok.wav": "86bd6b6978c4b50bf67def467675ac00bb0ba3f8",
+		"wind6.wav": "b71a41b7a7b164e2216101643f6ecd67d0e5e86a",
+		"noteB.wav": "7fcd2e1532b77c3a2a434ece6248770f5052cd77",
+		"wind5.wav": "3dbaf93550a16f7a191f1ec45c29b20f1b72226a",
+		"cancel.wav": "6a08924865d7f902893ff66d7a8d8e9ff7d5e734",
+		"wind3.wav": "e9fe74dbfe8347f90bfc2df155973d93e1aa7457",
+		"switchHue.wav": "9e94dba9c1161e602a5a527115c58df2491688f9",
+		"bad.wav": "feebd1e79d430ea22b0ebe21da343626e74392e6",
+		"steal.wav": "2c6e039ca881118c8bdcd9b1f64873305bbd3aa9",
+		"wind1.wav": "c267e53bd193e06438d89faa5651288d7eb022e6",
+		"noteA.wav": "4b7219f00c885413345fa562d068c04d83093a46",
+		"noteC.wav": "bdd9c8713c62c0232de617171c4ad74b854d4b17",
+		"wind2.wav": "9a2392c9d8da021c1e4e400697d968b0c7c88354",
+		"wind4.wav": "f2d36d025b63ddea819c21ba67f34cec22e29ddf",
+		"noteEnd.wav": "840deb392cab760b99cfe556f517d8a17a0af7ac"
+	}
+}

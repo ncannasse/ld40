@@ -360,7 +360,7 @@ class Game extends hxd.App {
 
 	static function main() {
 		#if js
-		hxd.Res.initEmbed();
+		hxd.Res.initEmbed({compressSounds:true});
 		#else
 		hxd.res.Resource.LIVE_UPDATE = true;
 		hxd.Res.initLocal();
