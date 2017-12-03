@@ -67,6 +67,10 @@ class Game extends hxd.App {
 		while( true )
 			try winds.push(hxd.Res.load("sfx/wind" + (i++) + ".wav").toSound()) catch( e : hxd.res.NotFound ) break;
 
+		// preload sounds
+		for( s in hxd.Res.load("sfx") )
+			s.toSound().getData();
+
 		world = new h2d.Layers(s2d);
 		world.filter = new h2d.filter.Bloom(0.5,0.2,2,3);
 		tiles = hxd.Res.tiles.toTile();
