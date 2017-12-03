@@ -56,8 +56,16 @@ class Game extends hxd.App {
 	var hueValue = 0;
 	var currentHue = 0.;
 
+	var winds : Array<hxd.res.Sound>;
+	var windTimer = 0.;
+
 	override function init() {
 		s2d.setFixedSize(LW * 32, LH * 32);
+
+		winds = [];
+		var i = 1;
+		while( true )
+			try winds.push(hxd.Res.load("sfx/wind" + (i++) + ".wav").toSound()) catch( e : hxd.res.NotFound ) break;
 
 		world = new h2d.Layers(s2d);
 		world.filter = new h2d.filter.Bloom(0.5,0.2,2,3);
@@ -102,6 +110,7 @@ class Game extends hxd.App {
 
 	function nextLevel() {
 		haxe.Timer.delay(function() {
+			hxd.Res.sfx.noteEnd.play();
 			for( e in entities.copy() )
 				if( e.hasFlag(NeedActive) )
 					e.remove();
@@ -129,6 +138,7 @@ class Game extends hxd.App {
 
 	function initLevel( ?reload ) {
 
+		hueValue = 0;
 
 		level = Data.level.all[currentLevel];
 		if( level == null )
@@ -334,6 +344,13 @@ class Game extends hxd.App {
 		hueShaderHalf.matrix.identity();
 		hueShader.matrix.colorHue(-Math.PI * currentHue);
 		hueShaderHalf.matrix.colorHue(-Math.PI/2 * currentHue);
+
+
+		windTimer += dt / 60;
+		if( windTimer > 0 ) {
+			winds[Std.random(winds.length)].play(false, 0.5 + Math.random() * 0.5);
+			windTimer -= 0.5 + Math.random() * 0.3;
+		}
 
 
 	}

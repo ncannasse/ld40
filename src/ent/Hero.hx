@@ -104,6 +104,7 @@ class Hero extends Entity {
 
 	function undoEvents() {
 		while( eventHist.length > 0 && eventHist[eventHist.length - 1].hLen > history.length ) {
+			hxd.Res.sfx.cancel.play(0.2);
 			switch( eventHist.pop().e ) {
 			case Get(o, x, y):
 				carry.remove(o);
@@ -161,6 +162,7 @@ class Hero extends Entity {
 		c.carried = false;
 		game.updateCol();
 		addEvent(Put(c));
+		return c;
 	}
 
 	function addEvent(e) {
@@ -282,11 +284,17 @@ class Hero extends Entity {
 			x = moving.x + moving.dx * moving.k + 0.5;
 			y = moving.y + moving.dy * moving.k + 0.5;
 
-			if( prev < 0.6 && moving.k >= 0.6 && !moving.undo ) {
 				var obj = Std.instance(game.pick(x, y), Object);
+			if( prev < 0.6 && moving.k >= 0.6 && !moving.undo ) {
 				if( obj != null ) {
 					switch( obj.kind ) {
 					case Square1, Square2, Wings:
+						switch( obj.kind ) {
+						case Square1: hxd.Res.sfx.noteA.play(0.5);
+						case Square2: hxd.Res.sfx.noteB.play(0.5);
+						case Wings: hxd.Res.sfx.noteC.play(0.5);
+						default:
+						}
 						obj.carried = true;
 						carry.push(obj);
 						game.updateCol();
@@ -307,17 +315,25 @@ class Hero extends Entity {
 
 				if( carry.length > 0 ) {
 					var s = getObj(ix, iy - 1, Steal);
-					if( s != null && !s.isOccupied() && carry.length > 0 )
+					if( s != null && !s.isOccupied() && carry.length > 0 ) {
 						put(ix, iy - 1);
+						hxd.Res.sfx.steal.play();
+					}
 					var s = getObj(ix, iy + 1, Steal);
-					if( s != null && !s.isOccupied() && carry.length > 0 )
+					if( s != null && !s.isOccupied() && carry.length > 0 ) {
 						put(ix, iy + 1);
+						hxd.Res.sfx.steal.play();
+					}
 					var s = getObj(ix - 1, iy, Steal);
-					if( s != null && !s.isOccupied() && carry.length > 0 )
+					if( s != null && !s.isOccupied() && carry.length > 0 ) {
 						put(ix - 1, iy);
+						hxd.Res.sfx.steal.play();
+					}
 					var s = getObj(ix + 1, iy, Steal);
-					if( s != null && !s.isOccupied() && carry.length > 0 )
+					if( s != null && !s.isOccupied() && carry.length > 0 ) {
 						put(ix + 1, iy);
+						hxd.Res.sfx.steal.play();
+					}
 				}
 
 				var obj = getObj(ix, iy);
@@ -327,11 +343,20 @@ class Hero extends Entity {
 					case [Exit,_]:
 						if( game.allActive )
 							game.nextLevel();
+						else
+							hxd.Res.sfx.cancel.play(0.5);
 					case [Plate1, _], [Plate2, _] if( ckind != null ):
-						put(ix, iy);
+						var c = put(ix, iy);
+						c.update(0);
+						obj.update(0);
+						if( c.active && obj.active )
+							hxd.Res.sfx.ok.play();
+						else
+							hxd.Res.sfx.bad.play();
 					case [HueSwitch, _]:
 						addEvent(Hue(game.hueValue));
 						game.hueValue = 1 - game.hueValue;
+						hxd.Res.sfx.switchHue.play(0.5);
 					default:
 					}
 				}

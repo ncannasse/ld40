@@ -116,19 +116,6 @@ class Object extends Entity {
 			}
 		}
 
-		if( wasCarried ) {
-			var tx = x * 32, ty = y * 32;
-			var d = hxd.Math.distance(tx - spr.x, ty - spr.y);
-			if( d > 1 ) {
-				spr.x = hxd.Math.lerp(spr.x, tx, 1 - Math.pow(0.7, dt));
-				spr.y = hxd.Math.lerp(spr.y, ty, 1 - Math.pow(0.7, dt));
-				return;
-			}
-			wasCarried = false;
-		}
-
-		super.update(dt);
-
 		var ix = Std.int(x), iy = Std.int(y);
 		switch( kind ) {
 		case Exit:
@@ -146,6 +133,20 @@ class Object extends Entity {
 			active = getObj(ix, iy, [CanPutOver]) != null;
 		default:
 		}
+
+		if( wasCarried ) {
+			var tx = x * 32, ty = y * 32;
+			var d = hxd.Math.distance(tx - spr.x, ty - spr.y);
+			if( d > 1 ) {
+				spr.x = hxd.Math.lerp(spr.x, tx, 1 - Math.pow(0.7, dt));
+				spr.y = hxd.Math.lerp(spr.y, ty, 1 - Math.pow(0.7, dt));
+				return;
+			}
+			wasCarried = false;
+		}
+
+		super.update(dt);
+
 	}
 
 }
