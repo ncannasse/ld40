@@ -168,7 +168,7 @@
 				},
 				{
 					"id": "HueSwitch",
-					"flags": 1,
+					"flags": 9,
 					"image": {
 						"file": "tiles.png",
 						"size": 32,

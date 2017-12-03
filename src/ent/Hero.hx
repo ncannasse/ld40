@@ -37,7 +37,7 @@ class Hero extends Entity {
 
 	public var carry : Array<Object> = [];
 
-	var undoAcc : Float;
+	var undoAcc : Float = 0.;
 	var tag : h2d.Graphics;
 	var moving : { x : Int, y : Int, dx : Int, dy : Int, k : Float, way : Float, ?undo : Bool };
 

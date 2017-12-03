@@ -1,0 +1,7 @@
+-lib heaps
+-lib castle
+-cp src
+-js ld40.js
+-main Game
+-D windowSize=832x832
+-dce full

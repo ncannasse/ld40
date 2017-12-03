@@ -1,0 +1,7 @@
+-lib heaps
+-lib castle
+-lib hldx
+-cp src
+-hl ld40.hl
+-main Game
+-D windowSize=832x832

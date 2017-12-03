@@ -342,8 +342,12 @@ class Game extends hxd.App {
 	public static var inst : Game;
 
 	static function main() {
+		#if js
+		hxd.Res.initEmbed();
+		#else
 		hxd.res.Resource.LIVE_UPDATE = true;
 		hxd.Res.initLocal();
+		#end
 		Data.load(hxd.Res.data.entry.getText());
 		inst = new Game();
 	}
