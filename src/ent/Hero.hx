@@ -24,6 +24,10 @@ class Hero extends Entity {
 	var tag : h2d.Graphics;
 	var moving : { x : Int, y : Int, dx : Int, dy : Int, k : Float, way : Float, ?undo : Bool };
 
+	var time : Float = 0.;
+
+	var dir(default,set) : hxd.Direction;
+
 
 	public function new(x,y) {
 		super(Hero, x, y);
@@ -36,6 +40,7 @@ class Hero extends Entity {
 		colView.blendMode = Add;
 		colView.filter = new h2d.filter.ColorMatrix(m);
 		game.world.add(colView, Game.LAYER_COL);
+		game.world.add(spr, Game.LAYER_HERO);
 
 		tag = new h2d.Graphics();
 		game.world.add(tag, Game.LAYER_ENT + 1);
@@ -47,6 +52,23 @@ class Hero extends Entity {
 	override function remove() {
 		super.remove();
 		colView.remove();
+	}
+
+	override function getAnim() {
+		switch( dir ) {
+		case Up:
+			return [for( i in 0...5 ) game.tiles.sub(i * 32, 96 + 32, 32, 32, -16, -16)];
+		default:
+		}
+		return [for( i in 0...5 ) game.tiles.sub(i * 32, 96, 32, 32, -16, -16)];
+	}
+
+	function set_dir(d) {
+		if( dir != d ) {
+			dir = d;
+			spr.play(getAnim(), spr.currentFrame);
+		}
+		return d;
 	}
 
 	function undoEvents() {
@@ -329,6 +351,16 @@ class Hero extends Entity {
 		updateMove(dt);
 
 		super.update(dt);
+
+
+		if( moving != null ) {
+			var m = moving;
+			dir = hxd.Direction.from(m.dx * m.way, m.dy * m.way);
+		}
+
+
+		time += dt * 0.05;
+		spr.y -= (Math.sin(time) + 1) * 3;
 	}
 
 }

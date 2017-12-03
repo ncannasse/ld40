@@ -70,6 +70,13 @@ class Object extends Entity {
 			var ty = (hpos.y / Hero.STEP) * 32;
 			var tangle = Math.atan2(ty - spr.y, tx - spr.x);
 
+			if( spr.scaleX > 0.5 ) {
+				spr.smooth = true;
+				spr.scale(Math.pow(0.95, dt));
+				if( spr.scaleX < 0.5 )
+					spr.setScale(0.5);
+			}
+
 			angle = hxd.Math.angleMove(angle, tangle, 0.4 * dt);
 			var ds = speed * dt * hxd.Math.distance(spr.x - tx, spr.y - ty);
 			spr.x += Math.cos(angle) * ds;
@@ -83,6 +90,14 @@ class Object extends Entity {
 			}
 		}
 
+		if( spr.scaleX < 1 ) {
+			spr.scale(Math.pow(1.05, dt));
+			if( spr.scaleX > 1 ) {
+				spr.setScale(1);
+				spr.smooth = false;
+			}
+		}
+
 		if( wasCarried ) {
 			var tx = x * 32, ty = y * 32;
 			var d = hxd.Math.distance(tx - spr.x, ty - spr.y);
@@ -93,6 +108,7 @@ class Object extends Entity {
 			}
 			wasCarried = false;
 		}
+
 		super.update(dt);
 	}
 

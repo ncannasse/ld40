@@ -70,8 +70,8 @@ class Entity {
 	}
 
 	public function update( dt : Float ) {
-		spr.x = Std.int(x * 32);
-		spr.y = Std.int(y * 32);
+		spr.x = Std.int(x * 64) / 2;
+		spr.y = Std.int(y * 64) / 2;
 	}
 
 

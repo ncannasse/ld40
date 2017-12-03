@@ -1,5 +1,20 @@
 import hxd.Key in K;
 
+class EnvPart extends h2d.SpriteBatch.BatchElement {
+
+	public var speed : Float;
+	public var rspeed : Float;
+
+	public function new(t) {
+		super(t);
+		x = Math.random() * Game.LW * 32;
+		y = Math.random() * Game.LH * 32;
+		speed = 6 + Math.random() * 3;
+		rspeed = 0.02 * (1 + Math.random());
+	}
+
+}
+
 @:publicFields
 class Game extends hxd.App {
 
@@ -11,6 +26,9 @@ class Game extends hxd.App {
 	static var LAYER_COL = 2;
 	static var LAYER_ENT = 3;
 	static var LAYER_CARRY = 4;
+	static var LAYER_HERO = 5;
+	static var LAYER_PARTS = 6;
+	static var LAYER_ENVP = 7;
 
 	var tiles : h2d.Tile;
 	var level : Data.Level;
@@ -20,18 +38,43 @@ class Game extends hxd.App {
 	var collides : Array<Int> = [];
 	var dbgCol : h2d.TileGroup;
 	var hero : ent.Hero;
-	var currentLevel = 9;
+	var currentLevel = 0;
 	var soilLayer : h2d.TileGroup;
 	var pad : hxd.Pad;
 	var allActive : Bool;
+
+	var bg : h2d.Sprite;
+	var clouds = [];
+
+	var parts : h2d.SpriteBatch;
 
 	override function init() {
 		s2d.setFixedSize(LW * 32, LH * 32);
 
 		world = new h2d.Layers(s2d);
-		world.filter = new h2d.filter.Bloom(0.5,0.1,2,3);
+		//world.filter = new h2d.filter.Bloom(0.5,0.1,2,3);
 		tiles = hxd.Res.tiles.toTile();
 		soilLayer = new h2d.TileGroup(tiles);
+
+		bg = new h2d.Sprite(world);
+		bg.filter = new h2d.filter.Blur(1, 3);
+		bg.filter.smooth = true;
+		new h2d.Bitmap(h2d.Tile.fromColor(0x366C8D, 1000, 1000), bg);
+
+		var rnd = new hxd.Rand(42);
+		var ctiles = [for( i in 0...3 ) tiles.sub(i * 32 * 3, 192, 32 * 3, 64, -32 * 3 >> 1, -32)];
+		for( i in 0...100 ) {
+			var b = new h2d.Bitmap(ctiles[rnd.random(ctiles.length)], bg);
+			b.smooth = true;
+			clouds.push({ sc : 0.7 + rnd.rand(), x : rnd.rand() * (LW * 32 + 200) - 100, y : rnd.rand() * (LH * 32 + 200) - 100, speed : rnd.rand() + 1, spr : b, t : Math.random() * Math.PI * 2 });
+		}
+
+		var ptiles = hxd.Res.envParts.toTile().split();
+		parts = new h2d.SpriteBatch(ptiles[0]);
+		world.add(parts, LAYER_ENVP);
+		for( i in 0...100 )
+			parts.add(new EnvPart(ptiles[Std.random(ptiles.length)]));
+
 		world.add(soilLayer, LAYER_SOIL);
 		initLevel();
 
@@ -59,15 +102,28 @@ class Game extends hxd.App {
 
 		soils = level.soils.decode(Data.soil.all);
 
+		while( soilLayer.numChildren > 0 )
+			soilLayer.getChildAt(0).remove();
+
+		var cdb = new h2d.CdbLevel(Data.level, currentLevel);
+		cdb.redraw();
+		var layer = cdb.getLevelLayer("border");
+		if( layer != null ) {
+			layer.content.addShader(new h3d.shader.SinusDeform(20,0.002,3));
+			soilLayer.addChild(layer.content);
+		}
+
 		var objects = level.objects.decode(Data.object.all);
 		var empty = tiles.sub(0, 2 * 32, 32, 32);
 		soilLayer.clear();
 		for( y in 0...LH )
 			for( x in 0...LW ) {
 				var s = soils[x + y * LW];
-				soilLayer.add(x * 32, y * 32, empty);
-				if( s.id != Empty )
-					soilLayer.add(x * 32, y * 32, tiles.sub(s.image.x * 32, s.image.y * 32, 32, 32));
+				if( s.id != Block2 ) {
+					soilLayer.add(x * 32, y * 32, empty);
+					if( s.id != Empty )
+						soilLayer.add(x * 32, y * 32, tiles.sub(s.image.x * 32, s.image.y * 32, 32, 32));
+				}
 				if( !reload )
 					createObject(objects[x + y * LW].id, x, y);
 			}
@@ -160,6 +216,38 @@ class Game extends hxd.App {
 			if( o != null && !o.active && o.hasFlag(NeedActive) )
 				allActive = false;
 		}
+
+		var ang = -0.3;
+		for( c in clouds ) {
+			var ds = c.speed * dt * 0.3;
+
+			c.t += ds * 0.01;
+			c.spr.setScale(1 + Math.sin(c.t) * 0.2);
+			c.spr.scaleX *= c.sc;
+
+			c.x += Math.cos(ang) * ds;
+			c.y += Math.sin(ang) * ds;
+			c.spr.x = c.x;
+			c.spr.y = c.y;
+			if( c.x > LW * 32 + 100 )
+				c.x -= LW * 32 + 300;
+			if( c.y < -100 )
+				c.y += LH * 32 + 300;
+		}
+
+		parts.hasRotationScale = true;
+		for( p in parts.getElements() ) {
+			var p = cast(p, EnvPart);
+			var ds = dt * p.speed;
+			p.x += Math.cos(ang) * ds;
+			p.y += Math.sin(ang) * ds;
+			p.rotation += ds * p.rspeed;
+			if( p.x > LW * 32 )
+				p.x -= LW * 32;
+			if( p.y < 0 )
+				p.y += LH * 32;
+		}
+
 	}
 
 
