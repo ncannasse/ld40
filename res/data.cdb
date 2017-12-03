@@ -16,7 +16,13 @@
 			],
 			"lines": [
 				{
-					"id": "Nothing"
+					"id": "Nothing",
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 1,
+						"y": 2
+					}
 				},
 				{
 					"id": "Empty",
@@ -791,6 +797,81 @@
 							},
 							{
 								"l": "border2",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgmgAAACxAwMDAgEBAgIBAgMBACACAQEACQ0AMAEBARsAAhoACQ0AEgIaABADPwAUAg0AAQIAAFQAAQkAAAIAADoAAAgAAD4AAG4AAU8AAQ0AAQUABA0ABScAAI0AMQICAoUAkAEBAQEDAwMDAwAAAAA=",
+					"objects": "BCJNGGBAgi4AAAAfAAEACm8CAAMAAAUjAAM/BQAIGQADDwIACBwHHAAsBgQSAA0CAHABAAAAAAAAAAAAAA==",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgmkAAACxAwMDAgEBAgIBAgMBACACAQEACQ0AMAEBARsAAhoACQ0AEgIaABADPwAUAg0AAQIAAFQAAQkAAAIABBsAAD4AAG4AAU8AAQ0AAQUABA0AAGEAAC8AEAGNADECAgKFAJABAQEBAwMDAwMAAAAA",
+					"objects": "BCJNGGBAgjgAAAAfAAEAChABHgAQAwUADgIAHgcTAAgCABgIDQAYBg0AFwUNABkEGgATAhoAEwkIAAMCAFAAAAAAAAAAAAA=",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [],
+					"soils": "BCJNGGBAgloAAACxAwMDAgEBAgIBAgMBACACAQEACQ0AMAEBARsAAhoADw0AAQICAAY3AAJUAAE1AAECAAA2AAAJAAEIAAEFAA8NAAIAYQABJwAAjQAAlQABDQCAAQEBAwMDAwMAAAAA",
+					"objects": "BCJNGGBAgh4AAAAfAAEAUhgHZgAYBA0AGAMNABgBDQAGAgBQAAAAAAAAAAAA",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
 								"p": {
 									"alpha": 1
 								}

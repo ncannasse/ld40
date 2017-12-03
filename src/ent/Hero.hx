@@ -242,7 +242,7 @@ class Hero extends Entity {
 		}
 
 		// cancel
-		if( moving != null && !padActive ) {
+		if( moving != null ) {
 			if( moving.dx < 0 ) {
 				if( right )
 					moving.way = -1;

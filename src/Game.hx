@@ -30,6 +30,9 @@ class Game extends hxd.App {
 	static var LAYER_PARTS = 6;
 	static var LAYER_ENVP = 7;
 
+
+	var currentLevel : Int;
+
 	var tiles : h2d.Tile;
 	var level : Data.Level;
 	var soils : Array<Data.Soil>;
@@ -38,7 +41,6 @@ class Game extends hxd.App {
 	var collides : Array<Int> = [];
 	var dbgCol : h2d.TileGroup;
 	var hero : ent.Hero;
-	var currentLevel = 9;
 	var soilLayer : h2d.TileGroup;
 	var pad : hxd.Pad;
 	var allActive : Bool;
@@ -59,8 +61,12 @@ class Game extends hxd.App {
 	var winds : Array<hxd.res.Sound>;
 	var windTimer = 0.;
 
+	static var save = hxd.Save.load({ volume : 1., level : #if release 0 #else 9 #end });
+
 	override function init() {
+
 		s2d.setFixedSize(LW * 32, LH * 32);
+		currentLevel = save.level;
 
 		winds = [];
 		var i = 1;
@@ -114,7 +120,13 @@ class Game extends hxd.App {
 
 	function nextLevel() {
 		haxe.Timer.delay(function() {
-			hxd.Res.sfx.noteEnd.play();
+
+
+			if( currentLevel == 0 )
+				hxd.Res.sfx.ok.play();
+			else
+				hxd.Res.sfx.noteEnd.play();
+
 			for( e in entities.copy() )
 				if( e.hasFlag(NeedActive) )
 					e.remove();
@@ -142,11 +154,17 @@ class Game extends hxd.App {
 
 	function initLevel( ?reload ) {
 
+
 		hueValue = 0;
 
 		level = Data.level.all[currentLevel];
 		if( level == null )
 			return;
+
+		if( save.level != currentLevel ) {
+			save.level = currentLevel;
+			hxd.Save.save(save);
+		}
 
 		if( !reload )
 			for( e in entities.copy() )
@@ -227,7 +245,7 @@ class Game extends hxd.App {
 		var i = collides[x + y * LW];
 		if( i > 0 ) {
 
-			if( !hero.padActive && e == hero && i < 16 ) {
+			if( e == hero && i < 16 ) {
 				// skip
 			} else {
 				return true;
@@ -268,11 +286,15 @@ class Game extends hxd.App {
 			}
 		}
 
+		#if !release
+
 		if( K.isPressed("H".code) )
 			hueValue = 1 - hueValue;
 
-		if( K.isPressed("R".code) || K.isPressed("K".code) )
+		if( K.isPressed("R".code) || K.isPressed("K".code) ) {
+			onReload();
 			initLevel();
+		}
 
 		if( (K.isPressed(K.BACKSPACE) || K.isPressed(K.PGUP)) && currentLevel > 0 ) {
 			currentLevel--;
@@ -282,6 +304,15 @@ class Game extends hxd.App {
 		if( K.isPressed(K.PGDOWN) && currentLevel < Data.level.all.length - 1 ) {
 			currentLevel++;
 			initLevel();
+		}
+
+		#end
+
+		if( K.isPressed("M".code) || K.isPressed("S".code) || K.isPressed(K.F1) ) {
+			var mg = hxd.snd.Driver.get().masterChannelGroup;
+			mg.volume = 1 - mg.volume;
+			save.volume = mg.volume;
+			hxd.Save.save(save);
 		}
 
 
@@ -298,7 +329,7 @@ class Game extends hxd.App {
 		var ang = -0.3;
 
 
-		var curWay = hero.movingAmount < 0 ? hero.movingAmount * 4 : 1;
+		var curWay = hero.movingAmount < 0 ? hero.movingAmount * 20 : 1;
 		way = hxd.Math.lerp(way, curWay, 1 - Math.pow(0.5, dt));
 
 
@@ -370,6 +401,7 @@ class Game extends hxd.App {
 		hxd.Res.initLocal();
 		#end
 		Data.load(hxd.Res.data.entry.getText());
+		hxd.snd.Driver.get().masterChannelGroup.volume = save.volume;
 		inst = new Game();
 	}
 

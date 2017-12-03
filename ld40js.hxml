@@ -5,3 +5,4 @@
 -main Game
 -D windowSize=832x832
 -dce full
+-D release
