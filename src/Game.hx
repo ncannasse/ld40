@@ -140,6 +140,10 @@ class Game extends hxd.App {
 
 		hxd.Res.data.watch(onReload);
 
+		#if !release
+		initLevel();
+		#else
+
 		title = new h2d.Bitmap(hxd.Res.title.toTile(), world);
 		title.scale(2);
 
@@ -152,7 +156,7 @@ class Game extends hxd.App {
 		tf.x = ((LW * 32) - (tf.textWidth * 2)) >> 1;
 		tf.y = 180;
 
-//		initLevel();
+		#end
 
 	}
 
