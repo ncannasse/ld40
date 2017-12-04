@@ -59,7 +59,7 @@ class Hero extends Entity {
 		colTile = game.tiles.sub(38, 38, 20, 20, -10, -10);
 		colView = new h2d.TileGroup(colTile);
 		var m = h3d.Matrix.I();
-		m._44 = 0.1;
+		m._44 = 0.15;
 		colView.blendMode = Add;
 		colView.addShader(new h3d.shader.SinusDeform(20,0.005,3));
 		colView.filter = new h2d.filter.ColorMatrix(m);
@@ -288,10 +288,11 @@ class Hero extends Entity {
 			if( prev < 0.6 && moving.k >= 0.6 && !moving.undo ) {
 				if( obj != null ) {
 					switch( obj.kind ) {
-					case Square1, Square2, Wings:
+					case Square1, Square2, Square3, Wings:
 						switch( obj.kind ) {
 						case Square1: hxd.Res.sfx.noteA.play(0.5);
 						case Square2: hxd.Res.sfx.noteB.play(0.5);
+						case Square3: hxd.Res.sfx.noteD.play(0.5);
 						case Wings: hxd.Res.sfx.noteC.play(0.5);
 						default:
 						}
@@ -345,7 +346,7 @@ class Hero extends Entity {
 							game.nextLevel();
 						else
 							hxd.Res.sfx.cancel.play(0.5);
-					case [Plate1, _], [Plate2, _] if( ckind != null ):
+					case [Plate1, _], [Plate2, _], [Plate3,_], [Plate4,_] if( ckind != null ):
 						var c = put(ix, iy);
 						c.update(0);
 						obj.update(0);
@@ -439,6 +440,10 @@ class Hero extends Entity {
 			targetR = 134;
 			targetG = 43;
 			targetB = 171;
+		case Square3:
+			targetR = 35;
+			targetG = 186;
+			targetB = 231;
 		case Wings:
 			targetR = targetG = targetB = 0;
 			flying += dt * 0.05;

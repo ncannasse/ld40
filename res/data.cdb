@@ -133,6 +133,16 @@
 					"flags": 2
 				},
 				{
+					"id": "Square3",
+					"flags": 2,
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 3,
+						"y": 1
+					}
+				},
+				{
 					"id": "Plate1",
 					"image": {
 						"file": "tiles.png",
@@ -140,7 +150,7 @@
 						"x": 2,
 						"y": 0
 					},
-					"flags": 15
+					"flags": 13
 				},
 				{
 					"id": "Plate2",
@@ -150,7 +160,27 @@
 						"x": 3,
 						"y": 0
 					},
-					"flags": 15
+					"flags": 13
+				},
+				{
+					"id": "Plate3",
+					"flags": 13,
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 4,
+						"y": 1
+					}
+				},
+				{
+					"id": "Plate4",
+					"flags": 13,
+					"image": {
+						"file": "tiles.png",
+						"size": 32,
+						"x": 4,
+						"y": 2
+					}
 				},
 				{
 					"id": "Wings",
@@ -301,7 +331,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgiIAAABQAwMDAwEBAAAJAAACAAAMABABCQAAAgAPDQBzUAEDAwMDAAAAAA==",
-					"objects": "BCJNGGBAgioAAAAeAAEAHgETAA8CAAEfAxUAAQ4CAB4FEwAPAgABHwIVAAEDAgBQAAAAAAAAAAAA",
+					"objects": "BCJNGGBAgioAAAAeAAEAHgETAA8CAAEfAxUAAQ4CAB4GEwAPAgABHwIVAAEDAgBQAAAAAAAAAAAA",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -345,7 +375,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgiIAAABQAwMDAwEBAAAJAAACAAAMABABCQAAAgAPDQBzUAEDAwMDAAAAAA==",
-					"objects": "BCJNGGBAgiwAAAAeAAEAHgITAA8CACgfAzwABFYEAAAABhwAFgELADAAAAUFAAYCAFAAAAAAAAAAAAA=",
+					"objects": "BCJNGGBAgiwAAAAeAAEAHgITAA8CACgfAzwABFYEAAAABxwAFgELADAAAAYFAAYCAFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -401,7 +431,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgigAAACQAwMDAwEBAgEBCQAAAgAQAQEAAAkAAAIAAAwADxoAbXACAQEDAwMDAAAAAA==",
-					"objects": "BCJNGGBAgh8AAAAeAAEAHgETAA8CACg/AwAEPgAdOQYCBTMAUAAAAAAAAAAAAA==",
+					"objects": "BCJNGGBAgiIAAAAeAAEAHgETAA8CACgfAzwACB8EHAADOQcCBhkAUAAAAAAAAAAAAA==",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -413,6 +443,18 @@
 							},
 							{
 								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
 								"p": {
 									"alpha": 1
 								}
@@ -445,7 +487,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgkYAAACQAwMDAwEBAgEBCQAAAgAQAQEAAAkAAAIAAAwABhoANgIBAg0AABsAACMAAAIAAAwABRoACQIACRoADw0AI3ACAQEDAwMDAAAAAA==",
-					"objects": "BCJNGGBAgiYAAAAeAAEAGAITAB8FDQAGGAYaAA8CABQfBygAEjkEAQMoAFAAAAAAAAAAAAA=",
+					"objects": "BCJNGGBAgiYAAAAeAAEAGAITAB8GDQAGGAcaAA8CABQfCigAEjkEAQMoAFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -501,7 +543,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgkMAAACQAwMDAwEBAgEBCQAAAgAQAQEAAAkAAAIAEAEbAAAJAAACAAAZAA8nAAYGNAAJAgAAGQAPNAAQDycACXACAQEDAwMDAAAAAA==",
-					"objects": "BCJNGGBAgi0AAAAeAAEAGAETABgHDQA2AwAFDwAWBAsADwIALzcGAAZFABcCDACAAAAAAAAAAAAAAAAA",
+					"objects": "BCJNGGBAgi0AAAAeAAEAGAETABgKDQA2AwAGDwAWBAsADwIALzcHAAdFABcCDACAAAAAAAAAAAAAAAAA",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -554,7 +596,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgkgAAACQAwMDAwEBAgIBCQAAAgA/AQEBDQAHGAEnAA8NAAQCAgADHgAAJgAgAQMEAAFoAAAJAAAEAA8NABARAyYAoAMBAQIBAQMDAwMAAAAA",
-					"objects": "BCJNGGBAgjIAAAAfAAEAF18FAAAAAy8AFwgCABgGDQAJAgASAg4AMgQABwkAAQIAEAEGAAY0AFAAAAAAAAAAAAA=",
+					"objects": "BCJNGGBAgjIAAAAfAAEAF18GAAAAAy8AFwgCABgHDQAJAgASAg4AMgQACgkAAQIAEAEGAAY0AFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -625,7 +667,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgkoAAACxAwMDAgEBAgIBAgMBAEUCAQEBDQARAw0AARgAAg0AIQEBCgAPDQAKAgIAAysAADMAEAFHAAAWAA8NABoSA2sAkAEBAgEBAwMDAwAAAAA=",
-					"objects": "BCJNGGBAgjgAAAAcAAEAPAUABhMAAwIAEwMIAAMCABMICAAPAgAREwQlAA5bABMBGgATAggABgIAFQcLAFAAAAAAAAAAAAA=",
+					"objects": "BCJNGGBAgjgAAAAcAAEAPAYABxMAAwIAEwMIAAMCABMLCAAPAgAREwQlAA5bABMBGgATAggABgIAFQoLAFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -696,7 +738,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgkQAAACxAwMDAgEBAgIBAgMBACACAQEAAw0AEAMMABEBGAAPDQATBi4AAToAEwFBAA8NABcjAwE7ABADCgABdQBwAgEBAwMDAwAAAAA=",
-					"objects": "BCJNGGBAgkAAAAAcAAEAPAMABBMADwIAAx8IFwADBwIAFQYMAEAGAAAFDQAQBwUAQQAAAAIGAAACAARGABABDQAPAgAEUAAAAAAAAAAAAA==",
+					"objects": "BCJNGGBAgkAAAAAcAAEAPAMABBMADwIAAx8LFwADBwIAFQcMAEAHAAAGDQAQCgUAQQAAAAIGAAACAARGABABDQAPAgAEUAAAAAAAAAAAAA==",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -767,7 +809,7 @@
 						}
 					],
 					"soils": "BCJNGGBAgkQAAACxAwMDAgEBAgIBAgMBACACAQEAAw0AEAMMABEBGAAPDQATBi4AAToAEwFBAA8NABeAAwEDAwECAQIHAAV1AFABAwMDAwAAAAA=",
-					"objects": "BCJNGGBAgj8AAAAfAAEADB8GIAAGHwgaAAYEAgAUBwkAUAAEAAADDQAQBQUAQQAAAAEGAAACAAQSABAJDQAPAgACcAIAAAAAAAAAAAAA",
+					"objects": "BCJNGGBAgj8AAAAfAAEADB8HIAAGHwsaAAYEAgAUCgkAUAAEAAADDQAQBgUAQQAAAAEGAAACAAQSABAMDQAPAgACcAIAAAAAAAAAAAAA",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -808,9 +850,37 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgoYAAAAgHAACABkZAgAAEgAEAgAIGAAPGgAJAAIADzQAAwACAA8aAA8MagAGNAAIAgAAGAAAAgAIFAACAgAAFgAAAgACDgAIEAAAFgAAAgAAFgAAAgAADAAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgCgHAAcABwAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgnIAAABQAAAAAB4FAAcCABUfDAAMGgAzOQA5HAAMGgAAAgACOAAPGgAhHS+EAAROAAAcABMsAgAMWgARI5AAAAIADBoABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAAoC8ALAAsACwALAAAAAAA"
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgisAAAAfAAEAGh8fLgAaDwIAGR0sLQAdORIADiQADwIADw+yAAcPGgBAUAAAAAAAAAAAAA=="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgmgAAACxAwMDAgEBAgIBAgMBACACAQEACQ0AMAEBARsAAhoACQ0AEgIaABADPwAUAg0AAQIAAFQAAQkAAAIAADoAAAgAAD4AAG4AAU8AAQ0AAQUABA0ABScAAI0AMQICAoUAkAEBAQEDAwMDAwAAAAA=",
-					"objects": "BCJNGGBAgi4AAAAfAAEACm8CAAMAAAUjAAM/BQAIGQADDwIACBwHHAAsBgQSAA0CAHABAAAAAAAAAAAAAA==",
+					"objects": "BCJNGGBAgi4AAAAfAAEACm8CAAMAAAYjAAM/BgALGQADDwIACBwKHAAsBwQSAA0CAHABAAAAAAAAAAAAAA==",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -825,6 +895,24 @@
 								"p": {
 									"alpha": 1
 								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
+								"p": {
+									"alpha": 1
+								}
 							}
 						]
 					}
@@ -833,9 +921,37 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
-					"layers": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgoYAAAAgHAACABkZAgAAEgAEAgAIGAAPGgAJAAIADzQAAwACAA8aAA8MagAGNAAIAgAAGAAAAgAIFAACAgAAFgAAAgACDgAIEAAAFgAAAgAAFgAAAgAADAAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgCgHAAcABwAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgnIAAABQAAAAAB4FAAcCABUfDAAMGgAzOQA5HAAMGgAAAgACOAAPGgAhHS+EAAROAAAcABMsAgAMWgARI5AAAAIADBoABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAAoC8ALAAsACwALAAAAAAA"
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgisAAAAfAAEAGh8fLgAaDwIAGR0sLQAdORIADiQADwIADw+yAAcPGgBAUAAAAAAAAAAAAA=="
+							}
+						}
+					],
 					"soils": "BCJNGGBAgmkAAACxAwMDAgEBAgIBAgMBACACAQEACQ0AMAEBARsAAhoACQ0AEgIaABADPwAUAg0AAQIAAFQAAQkAAAIABBsAAD4AAG4AAU8AAQ0AAQUABA0AAGEAAC8AEAGNADECAgKFAJABAQEBAwMDAwMAAAAA",
-					"objects": "BCJNGGBAgjgAAAAfAAEAChABHgAQAwUADgIAHgcTAAgCABgIDQAYBg0AFwUNABkEGgATAhoAEwkIAAMCAFAAAAAAAAAAAAA=",
+					"objects": "BCJNGGBAgjgAAAAfAAEAChABHgAQAwUADgIAHgoTAAgCABgLDQAYBw0AFwYNABkEGgATAhoAEwwIAAMCAFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [
@@ -858,9 +974,346 @@
 					"width": 13,
 					"height": 13,
 					"tileProps": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgokAAAAgHAACABkZAgAAEgAEAgAIGAAPGgAJAAIADzQAAwACAA8aAA8IAgAAMgAAAgAIFAACAgAAFgAAAgACDgAIAgAAFgAAAgAEFAAADAAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgCgHAAcABwAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgnIAAABQAAAAAB4FAAcCABUfDAAMGgAzOQA5HAAMGgAAAgACOAAPGgAhEC8/AAMCAA9AAAECAgAMGgARI5AAAAIADBoABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAAoC8ALAAsACwALAAAAAAA"
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgisAAAAfAAEAGh8fLgAaDwIAERM5JQAXLAIAAxMADwIAMg+yAAcPGgBAUAAAAAAAAAAAAA=="
+							}
+						}
+					],
+					"soils": "BCJNGGBAgl8AAACxAwMDAgEBAgIBAgMBACECAQEAAQwAABoAARwAAQ8AAxoAAhwAAQ0ABBoAAgIAAEcAAgoAAzoAAQkAAAIABDUAAQgAAQUADw0AAgBUAAEvAACNAAUNAIABAQEDAwMDAwAAAAA=",
+					"objects": "BCJNGGBAgjMAAAAfAAEAERECJQBhCwAIBgcICwAPAgAQGAUkABgKDQAYBA0AGAMNABgBDQAGAgBQAAAAAAAAAAAA",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgokAAAAgHAACABkZAgAAEgAEAgAIGAAPGgAJAAIADzQAAwACAA8aAA8IAgAAMgAAAgAIFAACAgAAFgAAAgACDgAIAgAAFgAAAgAEFAAADAAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgCgHAAcABwAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgnIAAABQAAAAAB4FAAcCABUfDAAMGgAzOQA5HAAMGgAAAgACOAAPGgAhEC8/AAMCAA9AAAECAgAMGgARI5AAAAIADBoABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAABgoAAgIABhAAoC8ALAAsACwALAAAAAAA"
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgisAAAAfAAEAGh8fLgAaDwIAERM5JQAXLAIAAxMADwIAMg+yAAcPGgBAUAAAAAAAAAAAAA=="
+							}
+						}
+					],
+					"soils": "BCJNGGBAgl8AAACxAwMDAgEBAgIBAgMBACECAQEAAQwAABoAARwAAQ8AAxoAAhwAAQ0ABBoAAgIAAEcAAgoAAzoAAQkAAAIABDUAAQgAAQUADw0AAgBUAAEvAACNAAUNAIABAQEDAwMDAwAAAAA=",
+					"objects": "BCJNGGBAgjwAAAAfAAEAChILHgARAQcAUQUACgMECgAPAgAeEwIyAANQAAACADAJAAYHABAIBQAMAgAYDBEAcAcAAAAAAAAAAAAA",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgpUAAAAgHAACABkZAgAAEgAEAgAIGAAPGgAJAAIADzQAAwACAA8aAA8EagAGCgACDAAAAgAADAACDgAACAAAAgAAFgAAAgAADAACDgAACAAAAgAAFgAAAgAADAAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgAICgACAgAAFgAAAgCgHAAcABwAHAAcAAAAAAA="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAglUAAABQAAAAAB4FAAcCABUfDAAMGgAzOQA5HAAMGgAAAgACOAAPGgAhFS+EABUfCgAEAgAEUAAPGgAhBj4ABAIABE4ACAoAAgIADxoAK6AvACwALAAsACwAAAAAAA=="
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgjIAAAAfAAEAGh8fLgAaDwIAERM5JQAVLAgABAoADwIAFz85ACQtAAYPsgAHDxoAQFAAAAAAAAAAAAA="
+							}
+						}
+					],
+					"soils": "BCJNGGBAgmAAAACxAwMDAgEBAgIBAgMBACECAQEAAQwAABoAARwAAQ8AAxoAAhwAAQ0AMQICAhoAEQMVACIBAUQAEAEVAAQoAAoNAAAoAAUaAA0NAABUAABpABABjQAFDQCAAQEBAwMDAwMAAAAA",
+					"objects": "BCJNGGBAgjgAAAAfAAEAG08HAAACMgAbAQIAEQEGAAICABIJBwAwBQgECQAQCgUAQQAAAAYGAA8CAAFwAwAAAAAAAAAAAAA=",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgoIAAAAgHAACABkZAgAAEgAEAgAIGAAAAgAEGAAOGgAGHAAADAAKAgAAMAAAAgAKFgAAAgAAFgACAgAADgAGEAAGCgAADAAAAgAGCgACDAAAAgAADAACDgAACAAAAgAAFgAAAgAADAAKAgAAFgAAAgAEFgAICgACAgAPGgArgBwAHAAcABwAAAAAAA=="
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgnQAAABQAAAAAB4FAAcCABU5DAAMGgAGHAAOGgAwAAAfBQANTgAAAgAPGgANFS82AH8fACMAFgAWagAAFR8kAAQCAASEAA8aAAcOAgAENAAwAAAsBQAHAgAGGgAGCgACAgAGEAAGCgACAgAGEACgLwAsACwALAAsAAAAAAA="
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgkkAAAAfAAEAAD8fACQWAAACAgAPHAAJDwIAKRMsPQARLAoAER5qAAMTAA8CAA4/OQA5JAAODgIAHl8TAAMCAA96AAcPGgAMUAAAAAAAAAAAAA=="
+							}
+						}
+					],
+					"soils": "BCJNGGBAgmIAAACxAwMDAgEBAgIBAgMBACICAQEABg0AABIAAA4AAAgAAQIABQ0AMQICAg0AEwMVAAMNAAAVAAApAAAbAAoNAAAWAAACAAEaAAA1AAkNAABhAAEaAACNAAUNAIABAQEDAwMDAwAAAAA=",
+					"objects": "BCJNGGBAgjoAAAAfAAEACycJBiAAdwcIAAQAAAESAA8CAAYfAhoABiMAChsAEwUIAAICABADBwAQDAUADgIAUAAAAAAAAAAAAA==",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
+					"layers": [
+						{
+							"name": "soil",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAggwAAAAfAAEA/zpQAAAAAAAAAAAA"
+							}
+						},
+						{
+							"name": "border",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgikAAAAfAAEAfDMWADkCAA+ZACURLAIAAj4AAAoAAgIAAhAADwIATFAAAAAAAAAAAAA="
+							}
+						},
+						{
+							"name": "border2",
+							"data": {
+								"file": "tiles.png",
+								"size": 32,
+								"stride": 12,
+								"data": "BCJNGGBAgh8AAAAfAAEASh8fXgAGDxoABT8fADA0AAYPAgCOUAAAAAAAAAAAAA=="
+							}
+						}
+					],
+					"soils": "BCJNGGBAgk8AAABBAwMDAgEAEgMBAGICAQEBAQIMAAgNACECAg0AAhkAAQsACg0AAhkAAjIAAQIAFQInAAVRABUCWQABKgAEZgAADQAFgAAPAgABUAMDAwMDAAAAAA==",
+					"objects": "BCJNGGBAgjYAAAAcAAEARggAAAYUACYFBAwANQADCg0AVQsHAAAJDgAOAgAeARMADAIAHAIRAA8CAAZQAAAAAAAAAAAA",
+					"props": {
+						"tileSize": 32,
+						"layers": [
+							{
+								"l": "soils",
+								"p": {
+									"alpha": 0.27
+								}
+							},
+							{
+								"l": "objects",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "soil",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border",
+								"p": {
+									"alpha": 1
+								}
+							},
+							{
+								"l": "border2",
+								"p": {
+									"alpha": 1
+								}
+							}
+						]
+					}
+				},
+				{
+					"width": 13,
+					"height": 13,
+					"tileProps": [],
 					"layers": [],
-					"soils": "BCJNGGBAgloAAACxAwMDAgEBAgIBAgMBACACAQEACQ0AMAEBARsAAhoADw0AAQICAAY3AAJUAAE1AAECAAA2AAAJAAEIAAEFAA8NAAIAYQABJwAAjQAAlQABDQCAAQEBAwMDAwMAAAAA",
-					"objects": "BCJNGGBAgh4AAAAfAAEAUhgHZgAYBA0AGAMNABgBDQAGAgBQAAAAAAAAAAAA",
+					"soils": "BCJNGGBAgkUAAAAfAwEAFLACAgMCAwMCAwICAwcAAAgAAgIAAQoAAgsAAA0AAB0AASwAAA0AAgYAAAgAD2YAFAMCABMBCAADAgBQAwMDAwMAAAAA",
+					"objects": "BCJNGGBAghcAAAAfAAEAfZYEAAUAAQAKAAOZAFAAAAAAAAAAAAA=",
 					"props": {
 						"tileSize": 32,
 						"layers": [

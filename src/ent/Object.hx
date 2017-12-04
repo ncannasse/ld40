@@ -15,15 +15,20 @@ class Object extends Entity {
 	public function new(k, x, y) {
 		super(k, x, y);
 		switch( kind ) {
-		case Square1, Square2:
-			var a = new h2d.Anim([for( i in 0...9 ) game.tiles.sub(i * 32, 256 + (kind == Square2 ? 32 : 0), 32, 32, -16, -16)], 20, spr);
+		case Square1, Square2, Square3, Wings:
+			var a = new h2d.Anim([for( i in 0...9 ) game.tiles.sub(i * 32, 256 + (kind == Wings ? 64 : kind == Square2 ? 32 : 0), 32, 32, -16, -16)], 20, spr);
 			a.loop = false;
 			a.onAnimEnd = function() {
 				haxe.Timer.delay(function() {
 					a.currentFrame = 0;
 				}, 200 + Std.random(400));
 			};
+			if( kind == Square3 )
+				a.adjustColor({ hue : Math.PI / 2 });
 			hintAct = a;
+		case Plate1, Plate2, Plate3, Plate4:
+			game.soilLayer.add(Std.int(x) * 32, Std.int(y) * 32, game.tiles.sub(64, 32, 32, 32));
+			spr.alpha = 0.8;
 		default:
 		}
 	}
@@ -102,7 +107,7 @@ class Object extends Entity {
 			return;
 		} else {
 			switch( kind ) {
-			case Plate1, Plate2:
+			case Plate1, Plate2, Plate3, Plate4:
 				active = getObj(Std.int(x), Std.int(y)) != null;
 			default:
 			}
@@ -129,6 +134,11 @@ class Object extends Entity {
 			active = getObj(ix, iy, [Plate1, Plate2][game.hueValue], [CanPutOver]) != null;
 		case Square2:
 			active = getObj(ix, iy, [Plate2, Plate1][game.hueValue], [CanPutOver]) != null;
+		case Square3:
+			if( game.hueValue == 0 )
+				active = getObj(ix, iy, Plate3, [CanPutOver]) != null || getObj(ix, iy, Steal, [CanPutOver]) != null;
+			else
+				active = getObj(ix, iy, Plate4, [CanPutOver]) != null;
 		case Wings:
 			active = getObj(ix, iy, [CanPutOver]) != null;
 		default:

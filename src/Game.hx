@@ -15,6 +15,33 @@ class EnvPart extends h2d.SpriteBatch.BatchElement {
 
 }
 
+class SinusDeform extends hxsl.Shader {
+
+	static var SRC = {
+
+		@global var time : Float;
+		@param var speed : Float;
+		@param var frequency : Float;
+		@param var amplitude : Float;
+
+		var calculatedUV : Vec2;
+		var absolutePosition : Vec4;
+
+		function fragment() {
+			calculatedUV.x += sin(absolutePosition.y * frequency + time * speed + absolutePosition.x * 0.1) * amplitude;
+		}
+
+	};
+
+	public function new( frequency = 10., amplitude = 0.01, speed = 1. ) {
+		super();
+		this.frequency = frequency;
+		this.amplitude = amplitude;
+		this.speed = speed;
+	}
+
+}
+
 @:publicFields
 class Game extends hxd.App {
 
@@ -61,6 +88,8 @@ class Game extends hxd.App {
 	var winds : Array<hxd.res.Sound>;
 	var windTimer = 0.;
 
+	var title : h2d.Bitmap;
+
 	static var save = hxd.Save.load({ volume : 1., level : #if release 0 #else 9 #end });
 
 	override function init() {
@@ -105,12 +134,26 @@ class Game extends hxd.App {
 			parts.add(new EnvPart(ptiles[Std.random(ptiles.length)]));
 
 		world.add(soilLayer, LAYER_SOIL);
-		initLevel();
 
 		pad = hxd.Pad.createDummy();
 		hxd.Pad.wait(function(p) pad = p);
 
 		hxd.Res.data.watch(onReload);
+
+		title = new h2d.Bitmap(hxd.Res.title.toTile(), world);
+		title.scale(2);
+
+		var tf = new h2d.Text(hxd.res.DefaultFont.get(), title);
+		tf.scale(0.5);
+		tf.textColor = 0;
+		tf.text = "Press space / A to start";
+		if( save.level > 0 )
+			tf.text += "\nEsc to reset save";
+		tf.x = ((LW * 32) - (tf.textWidth * 2)) >> 1;
+		tf.y = 180;
+
+//		initLevel();
+
 	}
 
 	function onReload() {
@@ -132,7 +175,7 @@ class Game extends hxd.App {
 					e.remove();
 			bg.visible = false;
 			parts.visible = false;
-			hero.remove();
+			if( hero != null ) hero.remove();
 
 			var t = new h3d.mat.Texture(LW * 32, LH * 32, [Target]);
 			var old = world.filter;
@@ -179,12 +222,12 @@ class Game extends hxd.App {
 		cdb.redraw();
 		var layer = cdb.getLevelLayer("border");
 		if( layer != null ) {
-			layer.content.addShader(new h3d.shader.SinusDeform(20,0.002,3));
+			layer.content.addShader(new SinusDeform(0.1,0.002,3));
 			soilLayer.addChild(layer.content);
 		}
 		var layer = cdb.getLevelLayer("border2");
 		if( layer != null ) {
-			layer.content.addShader(new h3d.shader.SinusDeform(20,0.002,3));
+			layer.content.addShader(new SinusDeform(0.1,0.002,3));
 			soilLayer.addChild(layer.content);
 		}
 
@@ -329,7 +372,7 @@ class Game extends hxd.App {
 		var ang = -0.3;
 
 
-		var curWay = hero.movingAmount < 0 ? hero.movingAmount * 20 : 1;
+		var curWay = hero != null && hero.movingAmount < 0 ? hero.movingAmount * 20 : 1;
 		way = hxd.Math.lerp(way, curWay, 1 - Math.pow(0.5, dt));
 
 
@@ -386,6 +429,27 @@ class Game extends hxd.App {
 			winds[Std.random(winds.length)].play(false, 0.5 + Math.random() * 0.5);
 			windTimer -= 0.5 + Math.random() * 0.3;
 		}
+
+		if( title != null && title.alpha < 1 )  {
+			title.alpha -= 0.01 * dt;
+			if( title.alpha < 0 ) {
+				title.remove();
+				title = null;
+			}
+		}
+
+
+		if( title != null && title.alpha == 1 ) {
+			if( K.isPressed(K.ESCAPE) )
+				currentLevel = 0;
+			if( K.isPressed(K.ESCAPE) || K.isPressed(K.SPACE) || pad.isPressed(hxd.Pad.DEFAULT_CONFIG.A) || pad.isPressed(hxd.Pad.DEFAULT_CONFIG.B) ) {
+				currentLevel--;
+				title.alpha = 0.99;
+				nextLevel();
+			}
+		}
+
+
 
 
 	}
