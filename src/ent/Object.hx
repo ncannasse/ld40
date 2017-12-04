@@ -140,7 +140,8 @@ class Object extends Entity {
 			else
 				active = getObj(ix, iy, Plate4, [CanPutOver]) != null;
 		case Wings:
-			active = getObj(ix, iy, [CanPutOver]) != null;
+			var obj = getObj(ix, iy, [CanPutOver]);
+			active = obj != null && obj.kind != Steal;
 		default:
 		}
 
