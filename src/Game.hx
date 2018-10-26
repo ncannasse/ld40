@@ -72,7 +72,7 @@ class Game extends hxd.App {
 	var pad : hxd.Pad;
 	var allActive : Bool;
 
-	var bg : h2d.Sprite;
+	var bg : h2d.Object;
 	var clouds = [];
 
 	var parts : h2d.SpriteBatch;
@@ -107,12 +107,12 @@ class Game extends hxd.App {
 			s.toSound().getData();
 
 		world = new h2d.Layers(s2d);
-		world.filter = new h2d.filter.Bloom(0.5,0.2,2,3);
+		world.filter = new h2d.filter.Bloom(0.5,0.2,3);
 		tiles = hxd.Res.tiles.toTile();
 		soilLayer = new h2d.TileGroup(tiles);
 
-		bg = new h2d.Sprite(world);
-		bg.filter = new h2d.filter.Blur(1, 3);
+		bg = new h2d.Object(world);
+		bg.filter = new h2d.filter.Blur(3);
 		bg.filter.smooth = true;
 		var tbg = tiles.sub(32 * 3, 64, 32, 32);
 		tbg.scaleToSize(LW * 32, LH * 32);
@@ -323,6 +323,7 @@ class Game extends hxd.App {
 
 
 	override function update( dt : Float ) {
+		dt *= 60; // old dt support
 
 		if( bmpTrans != null ) {
 			bmpTrans.alpha -= 0.05 * dt;
@@ -356,7 +357,7 @@ class Game extends hxd.App {
 		#end
 
 		if( K.isPressed("M".code) || K.isPressed("S".code) || K.isPressed(K.F1) ) {
-			var mg = hxd.snd.Driver.get().masterChannelGroup;
+			var mg = hxd.snd.Manager.get().masterChannelGroup;
 			mg.volume = 1 - mg.volume;
 			save.volume = mg.volume;
 			hxd.Save.save(save);
@@ -469,7 +470,7 @@ class Game extends hxd.App {
 		hxd.Res.initLocal();
 		#end
 		Data.load(hxd.Res.data.entry.getText());
-		hxd.snd.Driver.get().masterChannelGroup.volume = save.volume;
+		hxd.snd.Manager.get().masterChannelGroup.volume = save.volume;
 		inst = new Game();
 	}
 
